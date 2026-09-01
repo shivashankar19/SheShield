@@ -1,0 +1,1128 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage[a4paper,hmargin={3cm,2.5cm},vmargin={2.5cm,2.5cm}]{geometry}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{lipsum}
+\usepackage{subfig}
+\usepackage{url}
+\usepackage{float}
+\usepackage{xcolor}
+\definecolor{indigo}{RGB}{75,0,130}
+\usepackage{blindtext}
+\usepackage{comment}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{}
+\rhead{Women Safety Application}
+\lfoot{Dept. of CSE (Data Science)}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{eso-pic}
+\usepackage{longtable}
+\usepackage[utf8]{inputenc}
+\usepackage{titlesec}
+\newcommand{\reqheading}[1]{%
+  \vspace{0.8em}
+  \noindent\textbf{#1}
+  \vspace{0.3em}
+}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+basicstyle=\ttfamily\small,
+keywordstyle=\color{blue},
+stringstyle=\color{red},
+commentstyle=\color{gray},
+numbers=left,
+numberstyle=\tiny,
+stepnumber=1,
+breaklines=true,
+frame=single,
+tabsize=2,
+showstringspaces=false
+}
+\titleformat{\chapter}[display]{\normalfont\fontsize{16pt}{18pt}\selectfont\bfseries}{Chapter \thechapter}{0pt}{\vspace{0.5em}}
+% frame parameters
+\newcommand\OuterOffset{25pt}
+\newcommand\InnerOffset{29pt}
+\newcommand\OuterLineWidth{2.5pt}
+\newcommand\InnerLineWidth{1.5pt}
+% tikz picture as a macro (keeps code DRY)
+\newcommand{\MyDoubleBorder}{% 
+  \begin{tikzpicture}[remember picture,overlay]
+    \draw[line width=\OuterLineWidth]
+      ($(current page.north west)+(\OuterOffset,-\OuterOffset)$)
+      rectangle
+      ($(current page.south east)+(-\OuterOffset,\OuterOffset)$);
+    \draw[line width=\InnerLineWidth]
+      ($(current page.north west)+(\InnerOffset,-\InnerOffset)$)
+      rectangle
+      ($(current page.south east)+(-\InnerOffset,\InnerOffset)$);
+  \end{tikzpicture}%
+}
+% helper commands
+\newcommand{\AddBorder}{\AddToShipoutPictureBG{\MyDoubleBorder}}
+\newcommand{\RemoveBorder}{\ClearShipoutPictureBG}
+% --- Logo Overlay (Top-Center) ---
+\newcommand{\MyLogo}{% 
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[inner sep=0pt,anchor=north] at ($(current page.north)+(0,-3.2cm)$) {%
+      \includegraphics[width=16cm]{MLRTI Logo.png}%
+    };
+  \end{tikzpicture}%
+}
+\newcommand{\AddLogo}{% 
+    \AddToShipoutPictureBG*{% 
+        \AtPageUpperLeft{% 
+            \raisebox{-3.5cm}{% 
+                \makebox[\paperwidth]{% 
+                \hfill\includegraphics[width=16cm]{MLRTI Logo.png}\hfill 
+                }% 
+            }% 
+        }% 
+    }% 
+}
+\newcommand{\RemoveLogo}{\ClearShipoutPictureBG}
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+\usepackage{enumitem}
+\usepackage{tocloft}
+\setlength{\cftbeforechapskip}{2pt}
+
+\begin{document}
+
+\pagenumbering{roman}
+\setcounter{page}{2}
+% FRONT MATTER (comes FIRST)
+
+\chapter*{CERTIFICATE}
+\addcontentsline{toc}{chapter}{CERTIFICATE}
+\chapter*{DECLARATION}
+\addcontentsline{toc}{chapter}{DECLARATION}
+
+\chapter*{ACKNOWLEDGEMENT}
+\addcontentsline{toc}{chapter}{ACKNOWLEDGEMENT}
+
+\chapter*{ABSTRACT}
+\addcontentsline{toc}{chapter}{ABSTRACT}
+
+\clearpage
+\RemoveBorder
+\AddLogo
+\tableofcontents
+\clearpage
+
+% List of figures block
+\RemoveBorder
+\AddLogo
+\listoffigures
+\clearpage
+
+% List of tables block
+\RemoveBorder
+\AddLogo
+\listoftables
+\clearpage
+
+% --- Roman numbering only for TOC entries of front matter ---
+\clearpage
+\pagenumbering{roman}
+% % --- Roman numbering only for TOC entries of front matter ---
+% \clearpage
+% \pagenumbering{roman}
+
+
+% \addcontentsline{toc}{chapter}{CERTIFICATE}
+
+% \chapter*{DECLARATION}
+% \addcontentsline{toc}{chapter}{DECLARATION}
+
+% \chapter*{ACKNOWLEDGEMENT}
+% \addcontentsline{toc}{chapter}{ACKNOWLEDGEMENT}
+
+% \chapter*{ABSTRACT}
+% \addcontentsline{toc}{chapter}{ABSTRACT}
+
+% % --- Switch back to arabic for main content ---
+
+% --- Switch back to arabic for main content ---
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+
+\cleardoublepage
+\pagenumbering{arabic}  % Start normal page numbering
+\setcounter{chapter}{0} % Reset chapter counter so INTRODUCTION = Chapter 1
+\chapter{INTRODUCTION}
+\section{Overview}
+\par In recent years, growing concerns about women's safety have highlighted the urgent need for reliable and technology-driven protection systems. With increasing incidents of harassment, assault, and unsafe situations in public and private spaces, ensuring real time assistance has become a significant societal requirement. Traditional safety measures such as manual reporting or helpline numbers often result in delayed responses, which can put individuals at greater risk.\\
+
+\par The Women Safety Application with Real-Time Location Tracking and Emergency Alert System is a smart mobile-based solution designed to enhance personal security through modern technology. The system integrates GPS tracking, real-time location sharing, emergency alert mechanisms, and secure communication features to provide immediate assistance during critical situations. By enabling instant alert transmission to
+registered contacts and authorities, the application ensures faster response and improved situational awareness.\\
+
+\par The application is built as a scalable and user-friendly platform capable of functioning across diverse environments such as urban areas, campuses, workplaces, and remote
+locations. It combines mobile technology, cloud integration, and secure data management to ensure continuous monitoring and support. Additionally, it supports event-based alert
+activation through panic buttons, shake detection, or voice commands to ensure accessibility during emergencies.\\
+
+\par The Women Safety Application aims to bridge the gap between distress situations and timely assistance by providing automated alerts, real-time tracking, and reliable communication channels, ultimately creating a safer environment for women.\\
+
+\section{Objectives}
+
+\begin{itemize}
+    \item To develop a mobile-based women safety application that provides quick emergency assistance through real-time communication and location tracking.
+\end{itemize}
+
+\begin{itemize}
+    \item To implement real-time GPS location tracking so that emergency contacts and authorities can monitor the user’s live location during critical situations.
+\end{itemize}
+
+\begin{itemize}
+    \item To design an SOS emergency alert mechanism that allows users to instantly notify trusted contacts by sending alerts along with their current location.
+\end{itemize}
+
+\begin{itemize}
+    \item To design a user-friendly web application that allows users to easily provide agricultural inputs such as crop type, year, land area, water availability, and fertilizer quantity.
+\end{itemize}
+
+\begin{itemize}
+    \item To integrate automated emergency notifications using SMS and internet-based alerts so that help can reach the user even in low connectivity conditions.
+\end{itemize}
+
+\begin{itemize}
+    \item To identify potential crop shortages based on irrigation and regional production data and suggest suitable alternative crops.
+\end{itemize}
+
+\begin{itemize}
+    \item To build a user-friendly interface that enables users to easily activate safety features such as SOS alerts, location sharing, and emergency contact management.
+\end{itemize}
+
+\begin{itemize}
+    \item To store emergency events, user details, and alert data securely using a cloud-based backend system for reliable data management.
+\end{itemize}
+
+\begin{itemize}
+    \item To provide a monitoring dashboard that allows guardians or authorized users to track emergency alerts and location updates in real time.
+\end{itemize}
+
+\begin{itemize}
+    \item To demonstrate the practical use of mobile technologies such as GPS tracking, cloud services, and notification systems to improve women’s safety in real-world situations.
+\end{itemize}
+
+
+
+
+\section{Purpose of the Project}
+
+\par The primary purpose of the Women Safety Application is to design and implement an intelligent and responsive safety system that can provide immediate assistance during emergency situations. Traditional safety approaches often depend on manual communication, which may not be feasible in high-risk scenarios. This project seeks to eliminate such delays by introducing automated emergency alert mechanisms integrated with real time location tracking.
+\\
+
+\par The system is intended to support multiple real-world use cases including personal travel safety, late-night commuting, campus security, and workplace protection. The application allows users to instantly notify trusted contacts with their live location, ensuring that help can be dispatched without delay. It also maintains a record of emergency events for future reference and security analysis.\\
+
+\par Another important objective of the project is to ensure continuous monitoring and low-latency alert generation. The system shares real-time GPS coordinates, enabling contacts to track the user’s movement until they reach a safe location. This capability
+significantly enhances user confidence and enables proactive intervention when required.\\
+
+\par Additionally, the project focuses on developing a scalable and secure architecture that integrates mobile devices, cloud storage, and notification services. The design ensures compatibility with Android platforms and allows seamless communication between users, emergency contacts, and authorities.
+
+\section{Motivation}
+
+\par The increasing number of safety concerns and incidents involving women in public and
+private spaces serves as a strong motivation for this project. Many emergency situations
+escalate due to delayed communication or inability to share precise location details. Manual reporting systems often fail to provide real-time updates, reducing the effectiveness
+of response mechanisms.\\
+
+\par The widespread availability of smartphones and GPS technology provides an opportunity to develop intelligent safety applications that can operate instantly and efficiently.
+Mobile devices offer features such as location services, sensors, and internet connectivity,
+which can be leveraged to build a responsive emergency alert system. Without automation, relying solely on traditional communication methods can result in slower assistance
+and increased vulnerability.\\
+
+\par n certain situations, individuals may not be able to manually call for help due to fear,
+physical restriction, or lack of time. Therefore, integrating alternative activation methods
+such as panic buttons, shake detection, or voice triggers becomes essential. Existing safety
+systems may lack real-time synchronization, secure data handling, or continuous tracking
+capabilities, limiting their effectiveness.\\
+
+\par Another important motivation for developing this application is the need for accessible and easy-to-use safety solutions that can be operated by individuals of all age groups.
+Many existing safety systems are either complex to use or require constant manual interaction. In emergency situations, simplicity and speed are crucial. Therefore, the application
+is designed with an intuitive interface that allows users to trigger alerts quickly without
+navigating through multiple steps, ensuring usability even under stress or panic conditions.
+Furthermore, the integration of secure data storage and cloud-based synchronization
+motivates the development of a reliable and scalable system. Maintaining emergency logs,
+location history, and alert records can assist in investigations and improve accountability.
+By leveraging cloud technology, the system ensures data reliability, secure transmission,
+and real-time accessibility, thereby enhancing overall trust and effectiveness of the Women
+Safety Application.
+
+
+\chapter{LITERATURE SURVEY}
+\par A comprehensive review of existing research was conducted to understand the use of mobile technologies, real-time location tracking, artificial intelligence, and emergency alert systems in improving women’s safety. Several research papers and applications have proposed different approaches such as GPS-based tracking, SOS alert mechanisms, wearable safety devices, and AI-based threat detection systems. The methodologies, advantages, and limitations of five important research works related to women safety applications are summarized below.
+
+\section{Android-Based Women Safety Application with GPS Tracking}
+\begin{itemize}
+    \item \textbf{Authors:} Sneha Dole, Santosh Jagtap
+    \item \textbf{Published:} April 2025
+\end{itemize}
+
+\subsection{Methodology}
+\par This research proposed a mobile-based safety application that uses GPS technology to provide real-time location tracking during emergency situations. The system allows users to trigger an SOS alert using a panic button on the smartphone. When activated, the application sends the user’s current location to predefined emergency contacts through SMS or internet-based notifications. The application also provides features such as voice recording, alert notifications, and emergency contact management. Data related to user location and alerts are stored for further analysis and monitoring.
+
+\subsection{Advantages}
+\par The system provides quick emergency alerts and enables real-time location sharing with trusted contacts, which helps reduce response time during dangerous situations.
+
+\subsection{Disadvantages}
+\par The system relies heavily on internet connectivity and manual activation of the panic button, which may not always be possible during critical situations.
+
+\section{Wearable Women Safety Device with Emergency Alert System}
+\begin{itemize}
+    \item \textbf{Authors:} P. Taware, R. Kulkarni
+    \item \textbf{Published:} December 2023
+\end{itemize}
+
+\subsection{Methodology}
+\par This research introduced a wearable safety device designed specifically for women. The device integrates GPS tracking and wireless communication modules to send emergency alerts when activated. The wearable device is connected to a mobile application that sends the user’s real-time location to emergency contacts. Sensors embedded in the device monitor sudden movements or abnormal activity, which may indicate a dangerous situation. The system focuses on reducing dependency on smartphones by providing a hardware-based emergency alert mechanism.
+
+\subsection{Advantages}
+\par The wearable device provides quick access to emergency alerts and reduces the need for manual smartphone interaction during emergencies.
+
+\subsection{Disadvantages}
+\par The system requires additional hardware devices, which increases cost and maintenance requirements.
+
+\section{AI-Based Women Safety Application with Voice Activation}
+\begin{itemize}
+    \item \textbf{Authors:} Ilakkiya Jothi V. P.
+    \item \textbf{Published:} July 2025
+\end{itemize}
+
+\subsection{Methodology}
+\par This research developed an artificial intelligence-based women safety application capable of detecting distress signals using voice recognition technology. The system continuously monitors the user’s environment and listens for predefined emergency keywords such as “help” or “save me.” When such keywords are detected, the application automatically activates emergency procedures including sending alerts to contacts, sharing real-time GPS location, recording audio evidence, and activating alarms. Machine learning models were trained to differentiate between normal speech and distress signals to minimize false alerts.
+
+\subsection{Advantages}
+\par The system allows hands-free emergency activation and improves safety in situations where the user cannot manually trigger alerts.
+\subsection{Disadvantages}
+\par Voice recognition systems may generate false alerts in noisy environments and require careful training to improve detection accuracy.
+
+\section{IoT-Based Smart Women Safety System}
+\begin{itemize}
+    \item \textbf{Authors:} A. Sharma, R. Mishra
+    \item \textbf{Published:} June 2024
+\end{itemize}
+
+\subsection{Methodology}
+\par This research focused on developing an IoT-based women safety system that integrates sensors, GPS modules, and mobile applications. The system collects sensor data such as motion patterns, sudden movements, and environmental conditions to detect abnormal activities. When suspicious behavior is detected, the system automatically sends emergency alerts and location information to emergency contacts. The architecture includes sensor modules, mobile applications, and cloud services for monitoring and alert management.
+
+\subsection{Advantages}
+\par The IoT-based approach allows automatic detection of dangerous situations and improves the reliability of emergency alert systems.
+
+\subsection{Disadvantages}
+\par The system may increase hardware complexity and requires reliable sensor integration for accurate threat detection.
+
+\section{Mobile Application for Women Safety Using Panic Button and SMS Alerts}
+\begin{itemize}
+    \item \textbf{Authors:} R. S. Yarrabothu, B. Thota
+    \item \textbf{Published:} June 2015
+\end{itemize}
+
+\subsection{Methodology}
+\par This research introduced a mobile safety application named “Abhaya” designed to provide emergency assistance for women. The application allows users to send alert messages to emergency contacts by pressing a panic button or shaking the smartphone. Once activated, the system sends GPS coordinates and emergency messages to pre-registered contacts through SMS. The system also includes features such as automatic phone calls and audio recording to provide evidence during emergency situations.
+
+\subsection{Advantages}
+\par The application provides a simple and quick method for sending emergency alerts and sharing location information with trusted contacts.
+
+\subsection{Disadvantages}
+\par The system mainly relies on manual activation and may not work effectively if the user is unable to access the phone during emergencies.
+\newpage
+\section{Summary Table}
+\par A comparative analysis of the surveyed literature related to women safety applications, emergency alert systems, GPS tracking technologies, and AI-based safety detection systems is presented in Table
+\ref{tab:summary}.
+\begin{longtable}{|p{4cm}|p{4cm}|p{3cm}|p{3cm}|}
+\caption{Summary of Literature Survey} 
+\label{tab:summary}\\
+\hline
+\textbf{Title} & \textbf{Methodology} & \textbf{Advantages} & \textbf{Disadvantages} \\
+\hline
+\endfirsthead
+\hline
+\textbf{Title} & \textbf{Methodology} & \textbf{Advantages} & \textbf{Disadvantages} \\
+\hline
+\endhead
+
+Android-Based Women Safety Application Using GPS Tracking &
+Uses GPS technology and mobile application features to share real-time location and send SOS alerts to emergency contacts. &
+Provides quick location sharing and emergency alerts during dangerous situations. &
+Depends on internet connectivity and manual activation of the panic button.\\
+\hline
+
+Voice-Activated Women Safety System Using Artificial Intelligence &
+Uses AI-based voice recognition to detect distress words like “help” or “save me” and automatically trigger emergency alerts. &
+Allows hands-free activation and improves response time during emergencies. &
+Voice recognition may produce false alerts in noisy environments.\\
+\hline
+Wearable Device for Women Safety Using IoT &
+Uses wearable sensors, GPS modules, and GSM communication to detect abnormal movement and send emergency alerts. &
+Provides automatic emergency detection without manual smartphone interaction. &
+Requires additional hardware devices and regular maintenance. \\
+\hline
+
+Mobile Application with Panic Button and SMS Alerts &
+Allows users to send emergency alerts by pressing a panic button or shaking the smartphone. &
+Simple and easy-to-use emergency alert mechanism. &
+The system relies on manual activation and may fail if the user cannot access the phone.\\
+\hline
+
+AI-Based Smart Women Safety System Using Multi-Sensor Detection &
+Uses machine learning and sensor data such as motion, voice, and environmental signals to detect dangerous situations. &
+Provides intelligent detection of distress situations and automated alert systems. &
+Requires large datasets and computational resources for training AI models. \\
+\hline
+
+\end{longtable}
+
+\chapter{PROPOSED SYSTEM}
+
+% --- System Architecture ---
+\section{System Architecture}
+
+\par The system architecture of the \textbf{Women Safety Application with Real-Time Location Tracking and Emergency Alert System} is designed to provide quick emergency assistance, real-time monitoring, and reliable communication between the user and emergency contacts. The architecture consists of multiple functional layers including the User Interface Layer, Location Tracking Layer, Emergency Alert Processing Layer, Cloud Database Layer, and Monitoring Dashboard Layer. Each layer performs a specific function to ensure efficient safety monitoring and fast emergency response.
+
+\begin{enumerate}
+
+\item \textbf{Data Collection Layer}
+
+\par The Data Collection Layer is the first layer of the system. This layer is responsible for collecting agricultural datasets from reliable sources such as agricultural repositories, government agricultural records, and historical crop production datasets. The datasets include information such as crop types, irrigation levels, crop yield data, market prices, state and district details, and environmental conditions. These datasets form the foundation for the machine learning models used in the system. Proper data collection is essential because the accuracy and reliability of the system depend heavily on the quality of the collected agricultural data.\\
+
+
+\item \textbf{User Interface Layer}
+
+\par The User Interface Layer is the first layer of the system that allows users to interact with the application through a mobile interface. This layer is responsible for providing a simple and user-friendly interface where users can access safety features such as the SOS button, location sharing, and emergency contact management and 
+Users can register their profile, add emergency contacts, and activate safety alerts using the mobile application. The interface also displays important information such as the user’s current location and safety status. This layer ensures that the system is easy to use even during stressful situations.\\
+
+
+\item \textbf{Location Tracking Layer}
+
+\par The Location Tracking Layer is responsible for continuously monitoring the real-time location of the user using Global Positioning System (GPS) technology. The system captures the user’s latitude and longitude coordinates and updates them periodically and 
+When an emergency occurs, the application retrieves the user’s latest location and sends it to emergency contacts along with the alert message. This layer ensures accurate location tracking so that responders can quickly identify the user’s location.\\
+
+
+\item \textbf{Emergency Alert Processing Layer}
+
+\par The Emergency Alert Processing Layer handles the activation and processing of emergency alerts. When the user presses the SOS button or triggers an emergency action such as shaking the phone or voice activation, this layer processes the alert request.
+The system generates an emergency alert containing the user’s identity, current location, and timestamp. This alert is immediately sent to predefined emergency contacts and authorities through SMS notifications and internet-based alerts.
+This layer ensures that emergency alerts are delivered quickly and reliably.\\
+
+
+\item \textbf{Cloud Database Layer}
+
+\par The Cloud Database Layer stores important information related to the system such as user profiles, emergency contacts, real-time location data, and emergency event logs. Cloud platforms such as Firebase or similar services are used to store and synchronize data between the mobile application and monitoring dashboard.
+This layer ensures secure storage of user data and enables real-time synchronization between different system components.
+
+\end{enumerate}
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.1\linewidth]{system_architechture.png}
+    \caption{ System Architecture}
+\end{figure}
+
+% --- MODIFIED: Module Division (Elaborated) ---
+\section{Module Division}
+\par The system is divided into four primary modules, each responsible for performing a specific safety function in the Women Safety Application.
+
+\subsection{User Authentication and Dashboard Module}
+
+\subsubsection{Description}
+This module allows users to securely access the application through a login and registration system. Users can create an account by providing basic information such as name, phone number, and emergency contact details.
+After successful authentication, users are redirected to the main dashboard where all safety features are available. The dashboard provides options to activate SOS alerts, view location information, manage emergency contacts, and access safety features.
+This module ensures secure access to the application and provides a centralized interface for users to interact with the system.
+
+\subsubsection{Use Case Diagram}
+The use case diagram illustrates the interaction between the user and the system during the authentication process. The user logs into the application using valid credentials and accesses the dashboard interface. From the dashboard, the user can trigger emergency alerts, update profile details, and manage emergency contacts.
+
+\begin{figure}[H] 
+    \centering
+    \includegraphics[width=0.8\linewidth]{Usecase_1.png}
+    \caption{Use Case Diagram}
+\end{figure}
+
+\subsubsection{Class Diagram}
+The class diagram represents the structure of the authentication module. It includes classes such as User, Authentication, and Dashboard.
+The User class stores user details such as name, phone number, and emergency contacts.
+The Authentication class verifies login credentials and manages user sessions.
+The Dashboard class manages the system interface and allows users to access safety features.
+
+\begin{figure}[H] 
+    \centering
+    \includegraphics[width=0.3\linewidth, height=12cm]{class diagram_1.png}
+    \caption{Class Diagram}
+\end{figure}
+
+\subsubsection{Sequence Diagram}
+The sequence diagram illustrates the workflow during user login. The user enters login credentials through the interface, the system verifies the credentials through the authentication module, and the user is granted access to the dashboard if the credentials are valid.
+
+\begin{figure}[H] 
+    \centering
+    \includegraphics[width=1.0\linewidth]{sequencediagram_1.png}
+    \caption{Sequence Diagram}
+\end{figure}
+
+
+
+\subsection{Real-Time Location Tracking Module}
+
+\subsubsection{Description}
+This module continuously monitors the user’s location using GPS technology. The application retrieves the user’s latitude and longitude coordinates and updates the location data periodically.
+During emergencies, the system sends the user’s live location to emergency contacts so that they can quickly identify the user’s position and provide assistance.
+This module plays a critical role in ensuring accurate location tracking and fast emergency response.
+
+\subsubsection{Use Case Diagram}
+
+\begin{figure}[H] 
+    \centering
+    \includegraphics[width=0.6\linewidth]{usecas_2.png}
+    \caption{Use Case Diagram}
+\end{figure}
+
+\subsubsection{Class Diagram}
+
+\begin{figure}[H] 
+    \centering
+    \includegraphics[width=0.3\linewidth,height=12cm]{class_2.png}
+    \caption{Class Diagram}
+\end{figure}
+
+\subsubsection{Sequence Diagram}
+
+\begin{figure}[H] 
+    \centering
+    \includegraphics[width=1.0\linewidth]{sequence_2.png}
+    \caption{Sequence Diagram}
+\end{figure}
+
+
+
+\subsection{SOS Alert and Emergency Notification Module}
+
+\subsubsection{Description}
+The SOS Alert Module allows users to send emergency alerts instantly. When the user presses the SOS button or performs an emergency action, the system generates an alert message containing the user’s current location and emergency status.
+The alert is sent to predefined emergency contacts through SMS notifications and internet-based messaging services. This ensures that emergency contacts are immediately notified when the user is in danger
+
+\subsubsection{Use Case Diagram}
+
+\begin{figure}[H] 
+    \centering
+    \includegraphics[width=0.5\linewidth]{use_3.png}
+    \caption{Use Case Diagram}
+\end{figure}
+
+\subsubsection{Class Diagram}
+
+\begin{figure}[H] 
+    \centering
+    \includegraphics[width=0.5\linewidth,height=12cm]{class_3.png}
+    \caption{Class Diagram}
+\end{figure}
+
+\subsubsection{Sequence Diagram}
+
+\begin{figure}[H] 
+    \centering
+    \includegraphics[width=1.0\linewidth]{sequence_3.png}
+    \caption{Sequence Diagram}
+\end{figure}
+
+
+
+\subsection{Monitoring and Admin Dashboard Module}
+
+\subsubsection{Description}
+This module is responsible for monitoring emergency alerts and tracking user location during emergency situations. The system provides a web-based dashboard for authorized users such as guardians or administrators to monitor safety alerts in real time. When a user activates the SOS alert, the system sends the user’s location and emergency information to the cloud database. The dashboard retrieves this information and displays the user’s live location on a map along with alert details such as time, status, and user identification. Emergency contacts can use the dashboard to track the user’s movement and respond quickly to the emergency. This module improves coordination between users, guardians, and authorities, ensuring faster response and better safety management.
+
+\subsubsection{Use Case Diagram}
+
+\begin{figure}[H] 
+    \centering
+    \includegraphics[width=0.7\linewidth]{use_4.png}
+    \caption{Use Case Diagram}
+\end{figure}
+
+\subsubsection{Class Diagram}
+
+\begin{figure}[H] 
+    \centering
+    \includegraphics[width=0.3\linewidth,height=12cm]{class_4.png}
+    \caption{Class Diagram}
+\end{figure}
+
+\subsubsection{Sequence Diagram}
+
+\begin{figure}[H] 
+    \centering
+    \includegraphics[width=1.0\linewidth]{sequence_4.png}
+    \caption{Sequence Diagram}
+\end{figure}
+
+% --- MODIFIED: Requirements (Elaborated) ---
+\section{Requirements}
+
+\subsection{Hardware Requirements}
+
+The Women Safety Application does not require high-end hardware. The following minimum hardware configuration is recommended:\\
+
+\textbf{Processor:} Intel Core i3 or higher is recommended for running the system and processing machine learning models.\\
+
+\textbf{RAM:} Minimum 4 GB RAM is required. However, 8 GB RAM is recommended for better system performance when handling datasets and predictions.\\
+
+\textbf{Hard Disk:} Minimum 10 GB free disk space is required for storing agricultural datasets, software libraries, and system files.\\
+
+\textbf{System Type:} 64-bit computer system is recommended for compatibility with Python libraries and machine learning frameworks.\\
+
+\textbf{Input Devices:} Keyboard and mouse are required for entering system inputs such as region, crop details, and resource parameters.\\
+
+\textbf{Output Devices:} Monitor or smartphone screen to view application interface.\\
+
+
+
+\subsection{Software Requirements}
+
+The Smart Integration System for Optimal Resource Utilization is developed using modern programming languages, frameworks, and analytical tools to ensure efficient performance and easy deployment. The following software components are required to run the system:\\
+
+\textbf{Operating System:} The system is compatible with major operating systems such as Windows, Linux, and macOS. However, Windows 10 or later versions are recommended for better compatibility and ease of development.\\
+
+\textbf{Python:} Python 3.x is the primary programming language used for developing the system. It is used for data preprocessing, machine learning model development, optimization algorithms, and system integration. Python provides powerful libraries for data analysis and predictive modeling.\\
+
+\textbf{Flask Framework:} Flask is used to develop the web-based interface of the system. It acts as the backend server that handles user requests, processes agricultural inputs, and returns prediction and optimization results to the dashboard. Flask provides a lightweight environment for deploying machine learning applications.\\
+
+\textbf{Android Studio:} Android Studio is used as the primary development environment for building the mobile application. It provides tools for designing the user interface, implementing safety features such as SOS alerts and location tracking, and testing the application on Android devices. The application is developed using Java/Kotlin and integrates GPS services, notification systems, and real-time communication features to ensure quick emergency response.\\
+
+\textbf{Database (SQLite):} SQLite is used for storing user information and system-related data. It is lightweight, easy to manage, and does not require a separate server installation.\\
+
+\textbf{Python Libraries:} The system requires various Python libraries such as NumPy, Pandas for data processing, dataset analysis, model training, and visualization.\\
+
+\textbf{Web Browser:} A modern web browser such as Google Chrome, Microsoft Edge, or Firefox is required to access the web-based dashboard of the system.\\
+
+\textbf{Development Tools:} Development environments such as Visual Studio Code, PyCharm, or Jupyter Notebook can be used for coding, debugging, and testing the system modules.\\
+
+    
+    
+% --- MODIFIED: Implementation Section (Elaborated) ---
+\chapter{Implementation}
+
+\section{Algorithms/Methodologies Used}
+
+The Women Safety Application integrates mobile technologies, GPS tracking, emergency alert systems, and cloud-based communication to provide real-time safety monitoring and quick emergency response. The system captures the user’s location, detects emergency situations, and sends alerts to emergency contacts and authorities. The key methodologies used in the development of the proposed system are described below:\\
+
+\begin{enumerate}
+
+\item \textbf{GPS-Based Location Tracking}
+
+Global Positioning System (GPS) technology is used to track the real-time location of the user. The application continuously retrieves the user’s latitude and longitude coordinates through the mobile device’s GPS module. When the user activates an emergency alert, the system sends the latest location information to emergency contacts. This feature allows guardians or authorities to quickly identify the user’s location and provide assistance.
+
+
+\item \textbf{SOS Emergency Alert Mechanism}
+
+The SOS alert mechanism allows users to send emergency notifications instantly. When the user presses the SOS button or triggers an emergency event such as shaking the phone, the system generates an emergency message containing the user’s current location and alert status. This alert is sent to predefined emergency contacts using SMS or internet-based notifications. The SOS mechanism ensures immediate communication during critical situations.
+
+
+\item \textbf{Real-Time Location Sharing}
+
+The application supports real-time location sharing between the user and emergency contacts. Once an emergency alert is activated, the system continuously updates and shares the user’s location at regular intervals. This enables emergency contacts to monitor the user’s movement and track the user’s location on a map interface until the situation is resolved.
+
+
+\item \textbf{Emergency Contact Management}
+
+The system allows users to store and manage emergency contact details within the application. Users can add, update, or remove trusted contacts who will receive emergency alerts. When an SOS alert is triggered, the system automatically sends notifications to all registered contacts. This feature ensures that multiple people are informed during emergencies.
+
+
+\item \textbf{Shake Detection Mechanism}
+
+The shake detection mechanism allows the system to detect sudden phone movements that may indicate an emergency situation. The mobile device’s accelerometer sensor monitors motion patterns, and when a predefined shaking threshold is detected, the system automatically activates the emergency alert system. This feature provides an alternative method for triggering alerts without manually accessing the application.
+
+
+\item \textbf{Cloud-Based Data Storage}
+
+The application uses a cloud-based database to store user information, emergency contacts, and alert history. Cloud storage ensures that user data is synchronized across devices and can be accessed in real time by monitoring systems or administrators. It also allows secure storage and retrieval of emergency event data.
+
+
+\item \textbf{Mobile Application Development}
+
+The system is implemented as a mobile application developed using Android Studio. The application integrates various Android APIs such as GPS services, notification systems, and sensor services to implement safety features. The mobile interface allows users to easily activate emergency alerts and access safety features.
+
+
+\item \textbf{Alert Notification System}
+
+The notification system ensures that emergency alerts are delivered quickly and reliably. The system sends notifications through SMS messages and internet-based alerts containing the user’s location and emergency information. This ensures that emergency contacts receive immediate notifications even if the application is not actively running.
+
+\end{enumerate}
+
+
+
+\section{Technologies Used}
+
+\begin{enumerate}
+
+\item \textbf{Android Studio} – Android Studio is used as the primary development environment for building the mobile application. It provides tools for designing the user interface, writing application logic, and testing the application on Android devices.
+
+\item \textbf{Java / Kotlin} – Java or Kotlin programming languages are used to implement the core functionality of the Android application, including SOS alerts, location tracking, and emergency notifications.
+
+\item \textbf{GPS Services} – GPS services are used to obtain the real-time location of the user. The system retrieves latitude and longitude coordinates using Android’s location APIs.
+
+\item \textbf{Firebase / Cloud Database} – Firebase or a cloud-based database is used to store user information, emergency contacts, and alert logs. It provides real-time synchronization between the application and monitoring systems.
+
+\item \textbf{Google Maps API} – Google Maps API is used to display the user’s location on a map interface. It allows emergency contacts to view the user’s position visually during emergencies.
+
+\item \textbf{SMS Gateway} – SMS services are used to send emergency alert messages to predefined contacts. The SMS contains the user’s current location and alert information.
+
+\item \textbf{SQLite} – SQLite is used as a lightweight database for storing user login details and system-related information.
+
+\item \textbf{HTML} – HTML is used to design the structure of the web pages such as login pages, dashboard pages, and input forms.
+
+\item \textbf{CSS} – CSS is used to style the web pages and improve the user interface of the system.
+
+\item \textbf{JavaScript} – JavaScript is used to enhance interactivity and improve the overall user experience on the frontend.
+
+\item \textbf{Visual Studio Code (VS Code)} – VS Code is used as the development environment for coding, debugging, and managing the project.
+
+\item \textbf{PlantUML / UML Tools} – PlantUML is used to design system diagrams such as use case diagrams, class diagrams, sequence diagrams, and architecture diagrams.
+
+\end{enumerate}
+
+
+\section{Source Code}
+\subsection{index.html}
+
+
+\begin{lstlisting}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SheShield - Your Personal Safety Companion</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&<style>
+body {
+font-family: ’Inter’, sans-serif;
+background-color: #fdf2f8;
+}
+.gradient-bg {
+background: linear-gradient(135deg, #be185d 0%, #701a75 100%);
+}
+.glass-effect {
+background: rgba(255, 255, 255, 0.8);
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+}
+.sos-pulse {
+box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.7);
+animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+0% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.4); }
+70% { box-shadow: 0 0 0 20px rgba(225, 29, 72, 0); }
+100% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); }
+}
+</style>
+<script type="importmap">
+{
+"imports": {
+"react": "https://esm.sh/react@^19.2.3",
+"react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+"react/": "https://esm.sh/react@^19.2.3/",
+"@google/genai": "https://esm.sh/@google/genai@^1.34.0"
+}
+}
+</script>
+</head>
+<body>
+<div id="root"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
+
+\end{lstlisting}
+
+\subsection{metadata.json}
+
+
+\begin{lstlisting}
+{
+"name": "SheShield",
+"description": "Unified Protection Portal for Women. Features include high-accuracy"requestFramePermissions": [
+"geolocation"
+]
+}
+
+\end{lstlisting}
+
+\subsection{Capacitor.config.ts}
+
+
+\begin{lstlisting}
+
+import type { CapacitorConfig } from ’@capacitor/cli’;
+const config: CapacitorConfig = {
+appId: ’com.womensafety.sheshield’,
+appName: ’sheshield’,
+webDir: ’dist’
+
+\end{lstlisting}
+
+\subsection{tsconfig.json}
+
+\begin{lstlisting}
+{
+"compilerOptions": {
+"target": "ES2022",
+"experimentalDecorators": true,
+"useDefineForClassFields": false,
+"module": "ESNext",
+"lib": [
+"ES2022",
+"DOM",
+"DOM.Iterable"
+],
+"skipLibCheck": true,
+"types": [
+"node"
+],
+"moduleResolution": "bundler",
+"isolatedModules": true,
+"moduleDetection": "force",
+"allowJs": true,
+"jsx": "react-jsx",
+"paths": {
+"@/*": [
+"./*"
+]
+},
+"allowImportingTsExtensions": true,
+"noEmit": true
+}
+}
+
+
+\end{lstlisting}
+\subsection{output-metadata.json}
+
+\begin{lstlisting}
+{
+"version": 3,
+"artifactType": {
+"type": "APK",
+"kind": "Directory"
+},
+"applicationId": "com.womensafety.sheshield",
+"variantName": "debug",
+"elements": [
+{
+"type": "SINGLE",
+"filters": [],
+"attributes": [],
+"versionCode": 1,
+"versionName": "1.0",
+"outputFile": "app-debug.apk"
+}
+],
+"elementType": "File",
+"minSdkVersionForDexing": 24
+}
+
+
+
+\end{lstlisting}
+
+\subsection{Resources.tsx}
+
+\begin{lstlisting}
+const helplines = [
+{ name: ’Police / PCR’, number: ’100’ },
+{ name: ’Women Support’, number: ’1091’ },
+{ name: ’Medical / Ambulance’, number: ’108’ }
+];
+
+
+
+\end{lstlisting}
+
+\subsection{Types.ts}
+
+\begin{lstlisting}
+export interface Contact {
+id: string;
+name: string;
+phone: string;
+relation: string;
+}
+export interface Location {
+lat: number;
+lng: number;
+timestamp: number;
+}
+export interface User {
+name: string;
+email: string;
+phone: string;
+password?: string;
+isLoggedIn: boolean;
+isVerified: boolean;
+}
+export interface CycleData {
+lastDate: string;
+cycleLength: number;
+}
+export type AppView = ’login’ | ’dashboard’ | ’safety’ | ’resources’ | ’contacts’ | ’wexport interface DispatchStatus {
+contactId: string;
+contactName: string;
+status: ’pending’ | ’sending’ | ’delivered’ | ’failed’;
+}
+
+\end{lstlisting}
+
+
+\subsection{vite.config.ts}
+
+\begin{lstlisting}
+import path from ’path’;
+import { defineConfig, loadEnv } from ’vite’;
+import react from ’@vitejs/plugin-react’;
+export default defineConfig(({ mode }) => {
+const env = loadEnv(mode, ’.’, ’’);
+return {
+server: {
+port: 3000,
+host: ’0.0.0.0’,
+},
+plugins: [react()],
+define: {
+’process.env.API_KEY’: JSON.stringify(env.GEMINI_API_KEY),
+’process.env.GEMINI_API_KEY’: JSON.stringify(env.GEMINI_API_KEY)
+},
+resolve: {
+alias: {
+’@’: path.resolve(__dirname, ’.’),
+}
+}
+};
+});
+
+\end{lstlisting}
+
+
+% --- MODIFIED: CHAPTER 4 ---
+\chapter{Results}
+
+\section{Data Used}
+
+\par The Women Safety Application with Real-Time Location Tracking and Emergency Alert System uses user-related and location-based data to provide safety monitoring and emergency response services. The system collects and processes data related to user registration, emergency contacts, GPS location coordinates, and alert logs. This data helps the system track the user’s location, detect emergency situations, and send alerts to predefined contacts.
+The application does not require large external datasets like machine learning systems. Instead, it uses real-time data generated by the mobile device and user inputs. The main types of data used in the system are described below.\\
+
+\begin{enumerate}
+
+\item \textbf{User Registration Data}
+
+The User Registration Data contains basic information about the users who register in the application. This includes attributes such as user name, phone number, email address, and login credentials. The data is stored securely in the application database and is used for authentication and user management. This dataset ensures that only authorized users can access the application features.
+
+\item \textbf{Emergency Contact Data}
+
+The Emergency Contact Data contains the details of trusted contacts who will receive emergency alerts when the user activates the SOS feature. The data includes attributes such as contact name, phone number, and relationship with the user. When an emergency alert is triggered, the system automatically sends notifications to all registered emergency contacts.
+
+\item \textbf{Irrigation Dataset}
+
+The GPS Location Data contains real-time location information of the user captured using the mobile device’s GPS module. The data includes latitude, longitude, and timestamp information. This data helps the system track the user’s current location and share it with emergency contacts during emergency situations.
+
+\item \textbf{Alert Event Data}
+
+The Alert Event Data contains information related to emergency alerts generated by the system. This includes attributes such as user ID, alert time, alert status, and location details. The alert data is stored in the database so that administrators or guardians can monitor emergency events and track the user’s safety status.
+
+\end{enumerate}
+
+
+
+\section{Output Screenshots}
+
+The Women Safety Application provides an interactive mobile interface that allows users to access safety features and send emergency alerts quickly. When the application is opened, the user is presented with the main dashboard interface where various safety features are available.
+Users can register, log in to the application, and configure emergency contacts through the dashboard interface. The application provides options such as SOS alert activation, real-time location tracking, and emergency contact management.\\
+
+When the user activates the SOS alert, the system retrieves the current GPS location of the user and sends an emergency notification to all registered contacts. The notification includes the user’s location and a message indicating that the user may be in danger.
+\\
+
+
+The output results of the system are displayed through the mobile application interface and notification messages.\\
+
+
+\textbf{Login / Registration Screen:} The login and registration screen allows users to create an account and access the application securely. Users must enter their basic details such as full name and mobile number to register in the system. After successful registration, the user can access the main dashboard of the application. This screen ensures secure identification of users before they use the safety features.\\
+
+\textbf{Home Screen:} The Safety Portal acts as the main dashboard of the application. It contains a large HELP (SOS) button that allows the user to send an emergency alert instantly. When the user taps the SOS button, the system triggers the emergency alert mechanism and sends the user’s location to the registered emergency contacts. The screen also displays GPS status and safety circle information.\\
+
+\textbf{Safety Advisor Screen:} The Safety Advisor screen provides safety guidance and preventive advice for users. It includes safety recommendations for situations such as walking home at night, using public transport, or dealing with suspicious situations. Users can also describe a scenario and receive safety suggestions from the system. This feature helps users stay aware and prepared in potentially dangerous situations.\\
+
+\textbf{Safety Circle Screen:} The Safety Circle screen allows users to manage their emergency contacts. Users can add trusted contacts who will receive emergency alerts when the SOS button is activated. The system sends alert notifications to all contacts in the safety circle during emergency situations. This feature ensures that multiple people are notified immediately if the user is in danger.\\
+
+\textbf{Location Tracking Screen:} The Location Tracking screen displays the user’s real-time GPS location using latitude and longitude coordinates. The system continuously updates the location information and verifies the GPS signal. This feature helps emergency contacts track the user’s location during emergency situations and ensures accurate location monitoring.\\
+\subsection{Output Images}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Login Page.jpeg}
+    \caption{Login Page}
+    \label{fig:homepage}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{home page.jpeg}
+    \caption{Home Page}
+    \label{fig:homepage}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{tracking page.jpeg}
+    \caption{Location Tracking Page}
+    \label{fig:homepage}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{welfare page.jpeg}
+    \caption{Welfare Page page}
+    \label{fig:homepage}
+\end{figure}
+\newpage
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{safety circle page.jpeg}
+    \caption{Safety Circle Page}
+    \label{fig:homepage}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.05\textwidth]{safety advisor page.jpeg}
+    \caption{Safety Advisor Page}
+    \label{fig:homepage}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.05\textwidth]{user_page.jpeg}
+    \caption{User Account Page}
+    \label{fig:homepage}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.05\textwidth]{Emergency contacts page.png}
+    \caption{Emergency Contacts Page}
+    \label{fig:homepage}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.05\textwidth]{Nearby locations page.png}
+    \caption{Near Locations Page}
+    \label{fig:homepage}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.05\textwidth]{Skin care analyst.png}
+    \caption{Skin Care Analyst Page}
+    \label{fig:homepage}
+\end{figure}
+
+
+
+\chapter{Conclusion and Future Enhancements}
+\section{Conclusion}
+
+\par This work presents the Smart Integration System for Optimal ResouThis work presents the Women Safety Application, an intelligent mobile safety platform that integrates real-time location tracking, emergency alert mechanisms, safety advisory features, and trusted contact management into a unified mobile application. The system digitalizes and enhances personal safety support by providing users with instant access to emergency assistance, safety monitoring, and preventive guidance through an intuitive mobile interface. By replacing traditional manual safety measures with a centralized and technology-driven solution, the proposed application enables users to respond quickly during emergency situations and maintain continuous communication with trusted contacts. The modular architecture of the system ensures clear separation of functionalities, strengthens data security, and enables seamless communication between the mobile interface, backend services, location tracking modules, and notification systems, thereby making the application scalable, reliable, and easy to maintain.\\
+
+In addition to emergency alert functionalities, the integration of GPS-based tracking, contact notification systems, and safety advisory modules provides intelligent support for user safety. The application processes real-time location data and sends immediate alerts to registered emergency contacts whenever the SOS feature is activated. The safety advisory module further enhances user awareness by providing preventive guidance for different real-world situations such as traveling alone, using public transport, or dealing with suspicious activities. The safety circle feature allows users to maintain a network of trusted contacts who can be notified instantly during emergencies. The combination of real-time monitoring and safety guidance demonstrates improved effectiveness compared to traditional safety approaches that rely solely on manual intervention.\\
+
+The overall results indicate that the proposed Women Safety Application significantly improves personal safety awareness and emergency response efficiency. By enabling instant SOS alerts, real-time location sharing, safety advisory services, and emergency contact management, the system reduces response time during critical situations and enhances the user's sense of security. Furthermore, the application demonstrates the practical applicability of mobile technologies in addressing safety challenges faced by individuals, especially women, in daily life. The implementation of an easy-to-use mobile interface ensures that users can quickly access safety features without technical complexity.\\
+
+Hence, the proposed Women Safety Application provides a comprehensive, efficient, and technology-driven solution that bridges the gap between traditional safety practices and modern mobile-based safety systems. The application demonstrates strong potential for real-world deployment and further technological enhancements that can improve personal safety and emergency response mechanisms.\\
+
+\section{Future Enhancements}
+
+\begin{itemize}
+
+\item \textbf{Integration of Artificial Intelligence for Threat Detection:}  
+The system can be enhanced by Future versions of the application can incorporate artificial intelligence models capable of detecting distress signals through voice recognition, facial expressions, or abnormal behavioral patterns. These AI-based systems can automatically identify dangerous situations and trigger emergency alerts even when the user is unable to manually activate the SOS feature.
+
+\item \textbf{Real-Time Crime Data Integration:}  
+The system can be integrated with real-time crime databases and public safety APIs to identify high-risk areas. This feature can warn users when they enter unsafe locations and suggest safer routes for travel, thereby improving preventive safety measures.
+
+\item \textbf{Wearable Device Integration:}  
+Future enhancements may include integration with wearable devices such as smart bands or smart watches. These devices can detect abnormal health signals, panic gestures, or sudden movements and automatically activate emergency alerts without requiring smartphone interaction.
+
+\item \textbf{Multi-Language Support:}  
+Adding support for multiple regional languages will make the application more accessible to users from different linguistic backgrounds. Users will be able to interact with the safety application in their preferred language, improving usability and adoption.
+
+\item \textbf{Integration with Emergency Services:}  
+Future versions of the application can directly integrate with police control rooms, emergency helplines, and government safety services. This will enable faster emergency response and allow authorities to receive real-time alerts and location data from users.
+
+\item \textbf{Offline Emergency Alert System:}  
+The application can be enhanced to support emergency alerts even in low-network environments by using alternative communication technologies such as SMS gateways or peer-to-peer communication mechanisms.
+
+\end{itemize}
+
+\chapter*{REFERENCES}
+\addcontentsline{toc}{chapter}{REFERENCES}
+
+\begin{enumerate}[label={[\arabic*]}, leftmargin=1.5cm]
+
+\item Singh, P., Sharma, R., Verma, S. (2019). Design and Development of a Mobile-Based Women Safety Application Using GPS Tracking. International Journal of Computer Applications.
+
+\item Kaur, M., Kaur, A. (2020). Real-Time Location Sharing and Emergency Alert System for Personal Safety. International Journal of Engineering Research \& Technology (IJERT).
+
+\item Reddy, P., Kumar, S., Rao, V. (2021). Smart Women Safety System Using Android Application and GPS Technology. International Conference on Intelligent Computing and Control Systems (ICICCS). IEEE.
+
+\item Patel, D., Shah, H., Mehta, R. (2018). Implementation of Emergency Alert and Tracking System Using Mobile Technologies. Journal of Mobile Computing and Applications.
+
+\item Nair, S., Joseph, T., Varghese, A. (2022). Android-Based Women Safety Application with Real-Time Tracking and Alert Mechanism. International Journal of Advanced Research in Computer Science.
+
+\item Verma, R., Gupta, N., Singh, A. (2017). Design of Panic Button Based Safety Application Using GSM and GPS. International Conference on Communication and Signal Processing.
+
+\item Sharma, L., Bansal, P., Arora, K. (2020). Secure Location-Based Services for Emergency Response Systems. Journal of Information Security and Applications.
+
+\item Rao, K., Devi, P., Chandra, S. (2023). IoT and Cloud-Based Women Safety Monitoring System. International Journal of Emerging Technologies in Engineering Research.
+
+\item Thomas, J., Mathew, A., George, R. (2019). Development of Smart Personal Safety Application Using Machine Learning Techniques. Proceedings of International Conference on Smart Systems and Inventive Technology.
+
+\item Khan, A., Ahmed, F., Hussain, M. (2021). Real-Time Emergency Communication System with GPS Integration for Mobile Platforms. International Journal of Computer Science and Network Security.
+
+\item Dole, S., Jagtap, S. (2025). WE SAFE App: Women Safety Application Using Android Platform. International Journal of Progressive Research in Engineering Management and Science.
+
+\item Ilakkiya Jothi, V. P. (2025). AI-Powered Women Safety Application with Real-Time Audio-Based Trigger and Emergency Alert System. International Journal for Multidisciplinary Research.
+
+\item Yarrabothu, R. S., Thota, B. (2015). Abhaya: An Android App for the Safety of Women. IEEE International Conference on Communication and Information Processing.
+
+\item Hyndavi, V., Nikhita, N., Rakesh, S. (2020). Smart Wearable Device for Women Safety Using IoT. International Journal of Engineering Research and Technology.
+
+\item Taware, P., Kulkarni, R. (2023). Wearable Safety Device with Emergency Alert System for Women. IEEE International Conference on Smart Systems.
+
+\item Ahir, S., Shah, M., Patel, K. (2018). Personal Stun Device for Women Safety with Alert System. International Journal of Advanced Research in Computer Science.
+
+\item Verma, A., Singh, N. (2022). Mobile-Based Personal Safety Systems Using Location Tracking Technologies. Journal of Mobile Computing Applications.
+
+\item Roy, K., Sen, P. (2023). Smart Personal Safety Systems Using Mobile and IoT Technologies. International Journal of Computer Science and Engineering.
+
+\item Wang, L., Chen, Y. (2021). AI and IoT Applications for Personal Safety Monitoring Systems. IEEE Access.
+
+\item Mishra, R., Gupta, S., Sharma, A. (2022). Intelligent Mobile Safety Application for Emergency Response Using GPS and Sensor Data. International Journal of Computer Applications.
+
+\item Gupta, R., Mehta, S., Patel, K. (2021). Women Safety Mobile Application Using GPS Tracking and Emergency Alert System. International Journal of Computer Science and Information Technologies.
+
+\item Singh, A., Verma, P., Kaur, R. (2020). Smart Women Safety System Using Android Application with Location Tracking. International Journal of Innovative Technology and Exploring Engineering.
+
+\item Das, S., Banerjee, R., Ghosh, A. (2022). IoT-Based Personal Safety Monitoring System with Real-Time Alert Mechanism. Proceedings of the International Conference on Smart Computing and Communication Systems.
+
+\item Kumar, V., Sharma, N., Reddy, P. (2023). Intelligent Emergency Response System for Mobile Safety Applications Using GPS and Cloud Technologies. Journal of Mobile Computing and Smart Technologies.
+
+\end{enumerate}
+
+\end{document}

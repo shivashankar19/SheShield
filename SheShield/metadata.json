@@ -1,0 +1,7 @@
+{
+  "name": "SheShield",
+  "description": "Unified Protection Portal for Women. Features include high-accuracy GPS tracking, automated circle alerts, and encrypted data sharing.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

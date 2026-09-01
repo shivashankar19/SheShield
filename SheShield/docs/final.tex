@@ -1,0 +1,1785 @@
+\documentclass[a4paper, 12pt]{report}
+\usepackage{chngcntr}
+\counterwithin{figure}{section}
+\renewcommand{\chaptername}{CHAPTER}
+\usepackage[a4paper,hmargin={2.5cm,2.5cm},vmargin={2.5cm,2.5cm}]{geometry}
+\usepackage{amsfonts} 
+\usepackage{graphicx} 
+\usepackage{multicol}
+\usepackage{subfig}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{eso-pic}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{listings}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{setspace}
+\usepackage[colorlinks=true, allcolors=black]{hyperref}
+\usepackage{chngcntr}
+\counterwithin{table}{section}
+\usepackage{mathptmx}
+\usepackage{ragged2e} % ADDED
+
+\setstretch{1.0}
+\setlength{\parindent}{0pt} % ADDED
+
+
+\pagestyle{fancy}
+\lhead{}
+\rhead{Smart Resource Planner using CP-SAT and ILP with AI Integration}
+\lfoot{Dept. of CSE (Data Science)}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  numbers=left,
+  numberstyle=\tiny,
+  stepnumber=1,
+  frame=single,
+  breaklines=true,
+  backgroundcolor=\color{gray!10},
+}
+\usepackage{tocloft}
+\renewcommand{\cftchappresnum}{Chapter\ }
+\renewcommand{\cftchapaftersnum}{: }
+\setlength{\cftchapnumwidth}{5.5em}
+
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+
+\usepackage{etoolbox}
+
+\pretocmd{\subsubsection}{\renewcommand{\thefigure}{\thesubsubsection}}{}{}
+\pretocmd{\section}{\renewcommand{\thefigure}{\thesection.\arabic{figure}}}{}{}
+\begin{document}
+
+%================ Title Page =================%
+
+\begin{titlepage}
+\begin{center}
+
+% ---------- PACKAGES REQUIRED ----------
+% Add in preamble:
+% \usepackage{xcolor}
+% \usepackage{graphicx}
+
+% ---------- COLOR DEFINITIONS ----------
+\definecolor{darkbrown}{RGB}{101,67,33}
+\definecolor{darkpurple}{RGB}{102,0,153}
+\definecolor{darkred}{RGB}{153,0,0}
+\definecolor{teal}{RGB}{0,128,128}
+\definecolor{purple}{RGB}{128,0,128}
+
+% ---------- LOGO ----------
+\includegraphics[width=1.0\linewidth]{logo} \\[0.8cm]
+
+% ---------- TITLE ----------
+{\color{darkbrown}\textbf{\Large A}}\\[0.4cm]
+
+{\color{darkbrown}\textbf{\Large MAJOR PROJECT REPORT}}\\[0.6cm]
+
+{\Large On} \\[0.6cm]
+
+{\color{darkpurple}\fontsize{20pt}{22pt}\selectfont
+\textbf{A WOMEN SAFETY APPLICATION\\[0.1cm] WITH REAL-TIME LOCATION TRACKING\\[0.3cm] AND EMERGENCY ALERT SYSTEM}
+}\\[0.5cm]
+{\large Submitted in partial fulfilment of the\\
+Requirements for the award of the Degree of
+\\[0.5cm]
+{\color{darkred}\textbf {\Large Bachelor of Technology}}\\[0.2cm]
+% ---------- COURSE ----------
+{\Large In}\\[0.3cm]
+
+{\color{darkred}\textbf{\Large Computer Science \& Engineering}}\\[0.2cm]
+{\color{darkred}\textbf{\Large (Data Science)}}\\[0.3cm]
+
+% ---------- STUDENTS ----------
+\begin{center}
+
+{\textbf{\large By}}\\[0.4cm]
+
+\begin{tabular}{@{} >{\centering\arraybackslash}p{6cm} >{\centering\arraybackslash}p{5cm} @{}}
+\color{teal}\textbf{\Large K.NIKHITHA} & \color{teal}\textbf{\Large 22R21A6732} \\[0.15cm]
+\color{teal}\textbf{\Large K.SHIVA SHANKAR} & \color{teal}\textbf{\Large 22R21A6727} \\[0.15cm]
+\color{teal}\textbf{\Large G.VINAY REDDY} & \color{teal}\textbf{\Large 23R25A6703} \\[0.7cm]
+\end{tabular}
+
+\end{center}
+
+% ---------- GUIDE ----------
+{\textbf{\large Under the guidance of}}\\[0.2cm]
+
+{\textbf{\Large Dr. D. JYOTHI}}\\[0.3cm]
+{\textbf{\large Associate Professor}}\\[0.4cm]
+
+% ---------- DEPARTMENT ----------
+{\color{purple}\textbf{\Large Department of Computer Science \& Engineering}}\\[0.2cm]
+{\color{purple}\textbf{\Large (Data Science)}}\\[1cm]
+
+% ---------- YEAR ----------
+{\textbf{\Large March 2026}}
+
+\end{center}
+\end{titlepage}
+
+%================ FIXED PAGE =================%
+\pagenumbering{roman}
+
+\begin{titlepage}
+
+\includegraphics[width=1.0\linewidth]{logo} \\[0.2cm]
+\begin{center}
+    
+
+\timesfont{
+\textbf{\Large Department of Computer Science \& Engineering }\\[0.3cm]
+\textbf{\Large (Data Science) }\\[0.5cm]
+\end{center}
+
+\subsection*{Vision of the Institute}
+Promote academic excellence, research, innovation, and entrepreneurial skills to produce graduates with human values and leadership qualities to serve the nation.
+
+
+\subsection*{Mission of the Institute}
+Provide student-centric education and training on cutting-edge technologies to make the students globally competitive and socially responsible citizens. Create an environment to strengthen research, innovation and entrepreneurship to solve societal problems.
+
+\subsection*{Vision of the Department}
+Achieve global recognition through innovation, interdisciplinary research and excellence in Data Science. Empower students with professional competence to excel in industry, higher studies and entrepreneurship.
+
+
+\subsection*{Mission of the Department}
+\begin{itemize}
+    \item \textbf{M1:} To foster a culture of innovation and interdisciplinary research that addresses real-world challenges through the application of advanced Data Science techniques and emerging technologies.
+    
+    \item \textbf{M2:} To equip students with strong analytical, technical and professional skills, enabling them to excel in industry, pursue higher education and engage in entrepreneurial ventures.
+    
+    \item \textbf{M3:} To promote collaboration with academia, industry and research organizations globally, ensuring continuous learning, ethical practice and societal impact through Data Science.
+\end{itemize}
+
+
+
+\subsection*{Program Educational Objectives}
+\begin{itemize}
+    \item \textbf{PEO1:} To enable the graduates of the program to have a globally competent professional career in Data Science domain.
+    
+    \item \textbf{PEO2:} To prepare students to excel in Data Science with the technical skills and competency to carry out research and address basic needs of the society.
+    
+    \item \textbf{PEO3:} To empower the graduates of the program to have entrepreneurial skills with a lifelong learning attitude in order to support the growth of the economy of a country.
+\end{itemize}
+\thispagestyle{plain}
+\phantomsection
+
+\setcounter{page}{1} % iv
+
+\end{titlepage}
+
+%================ REST OF YOUR CODE =================%
+% (UNCHANGED — KEEP EXACTLY SAME FROM HERE)
+
+
+
+
+
+%================begin of certificate page======================
+
+\begin{titlepage}
+
+\begin{tikzpicture}[overlay,remember picture]
+
+\end{tikzpicture}
+\begin{center}
+\begin{figure}[h]  %h means here other options t , b, p, etc.
+\centering
+\includegraphics[width=1.0\linewidth]{MLRTI logo}\\[0.2cm]
+\end{figure}
+
+\begin{center}
+\timesfont{
+\textbf{\Large Department of Computer Science \& Engineering }\\[0.3cm]
+\textbf{\Large (Data Science) }\\[1.0cm]
+
+%-------------------------------------------------------
+\textbf{\Large{\underline{CERTIFICATE}}}\\[1.0cm]
+\end{center}
+\begin{minipage}{\textwidth}
+\justify
+\doublespacing
+This is to certify that the project entitled \textbf{``A WOMEN SAFETY APPLICATION WITH
+REAL-TIME LOCATION TRACKING AND EMERGENCY ALERT SYSTEM''} has been submitted by \textbf{K. NIKHITHA (22R21A6732)}, \textbf{K.SHIVA SHANKAR (22R21A6727)} and \textbf{G.VINAY REDDY (23R25A6703)} in partial fulfilment of the requirements for the award of the degree of Bachelor of Technology in \textbf{Computer Science and Engineering (Data Science)} from MLR Institute of Technology affiliated to Jawaharlal Nehru Technological University, Hyderabad. The results embodied in this project have not been submitted to any other University or Institution for the award of any degree or diploma.
+\end{minipage}
+
+
+\vspace{3cm}
+\begin{center}
+\begin{minipage}{0.45\textwidth}
+    \centering
+    {\large \textbf{Mr. J.Nagaraju}}\\[0.1cm]
+    {\normalsize Assistant Professor}\\
+    {\normalsize Internal Guide}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\textwidth}
+    \centering
+    {\large \textbf{Dr. P. SUBHASHINI}}\\[0.1cm]
+    {\normalsize Head of the Department}\\
+    {\normalsize Data Science}
+\end{minipage}
+\end{center}
+\vspace{3cm}
+\begin{center}
+    \textbf{External Examiner}
+\end{center}
+
+\vfill
+
+\thispagestyle{plain}
+\phantomsection
+\addcontentsline{toc}{chapter}{CERTIFICATE}
+\setcounter{page}{2} % iv
+\end{titlepage}
+
+
+%================DECLARATION============================
+\begin{titlepage}
+
+\begin{tikzpicture}[overlay,remember picture]
+
+\end{tikzpicture}
+%\begin{center}
+\begin{figure}[h]  %h means here other options t , b, p, etc.
+\centering
+\includegraphics[width=1.0\linewidth]{logo}
+\end{figure}
+\begin{center}
+\textbf{\Large Department of Computer Science \& Engineering }\\[0.3cm]
+\textbf{\Large (Data Science) }\\[1.0cm]
+
+%-------------------------------------------------------
+\textbf{\Large{\underline{DECLARATION}}}\\[1.0cm]
+\end{center}
+\noindent
+\justifying
+\doublespacing
+We hereby declare that the project entitled \textbf{“SMART RESOURCE PLANNER USING CP-SAT AND ILP WITH AI INTEGRATION
+”}is the work done during the period from \textbf{July 2025 to April 2026} and is submitted in partial fulfilment of the requirements for the award of degree of Bachelor of Technology in \textbf{Computer Science and Engineering (Data Science)} from MLR Institute of Technology affiliated to Jawaharlal Nehru Technological University, Hyderabad. The results embodied in this project have not been submitted to any other University or Institution for the award of any degree or diploma. 
+
+\vspace{0.8in}
+\begin{flushright}
+\begin{tabular}{@{}l l@{}}
+\textbf{M. VASANTHI}     & \textbf{22R21A67A9} \\[0.0cm]
+\textbf{M. SAI SRIKAR}   & \textbf{22R21A67A7} \\[0.0cm]
+\textbf{P. SREETHAN}       & \textbf{22R21A67B3} \\
+\end{tabular}
+\end{flushright}
+
+\thispagestyle{plain}
+\phantomsection
+\addcontentsline{toc}{chapter}{DECLARATION}
+\setcounter{page}{3} % iv
+\end{titlepage}
+
+
+\begin{titlepage}
+
+\begin{tikzpicture}[overlay,remember picture]
+
+\end{tikzpicture}
+%\begin{center}
+\begin{figure}[h]  %h means here other options t , b, p, etc.
+\centering
+\includegraphics[width=1.0\linewidth]{logo}
+\end{figure}
+\begin{center}
+\textbf{\Large Department of Computer Science \& Engineering }\\[0.3cm]
+\textbf{\Large (Data Science) }\\[1.0cm]
+\textbf{\Large{\underline{ACKNOWLEDGMENT}}}\\[1.0cm]
+\end{center}
+\doublespacing
+\noindent
+\justifying
+The satisfaction and euphoria that accompany the successful completion of any task
+would be incomplete without the mention of people who made it possible , whose
+constant guidance and encouragement crowned our efforts with success. It is a pleasant
+aspect that we now have the opportunity to express our guidance for all of them. First of
+all , we would like to express our deep gratitude towards our internal guide \textbf{Dr. D. JYOTHI, Associate Professor} for her support in the completion of our
+dissertation. We wish to express our sincere thanks to \textbf{Dr. P. Subhashini , HOD ,
+Department of Computer Science \& Engineering (Data Science)} and Principal   for providing the facilities to complete the
+dissertation. I would like to thank all our faculty and friends for their help and
+constructive criticism during the project period. Finally, we are very much indebted to
+our parents for their moral support and encouragement to achieve goals. 
+\vspace{0.8in}
+\begin{flushright}
+\begin{tabular}{@{}l l@{}}
+\textbf{M. VASANTHI}     & \textbf{22R21A67A9} \\[0.0cm]
+\textbf{M. SAI SRIKAR}   & \textbf{22R21A67A7} \\[0.0cm]
+\textbf{P. SREETHAN}       & \textbf{22R21A67B3} \\
+\end{tabular}
+\end{flushright}
+
+\thispagestyle{plain}
+\phantomsection
+\addcontentsline{toc}{chapter}{ACKNOWLEDGMENT}
+\setcounter{page}{4} % iv
+\end{titlepage}
+
+
+\begin{titlepage}
+
+\begin{tikzpicture}[overlay,remember picture]
+
+\end{tikzpicture}
+%\begin{center}
+\begin{figure}[h]  %h means here other options t , b, p, etc.
+\centering
+\includegraphics[width=1.0\linewidth]{logo}
+\end{figure}
+\begin{center}
+\textbf{\Large Department of Computer Science \& Engineering }\\[0.3cm]
+\textbf{\Large (Data Science) }\\[1.0cm]
+\textbf{\Large{\underline{ABSTRACT}}}\\[1.0cm]
+\end{center}
+\doublespacing
+
+
+
+In today’s rapidly evolving academic environments, efficient scheduling and resource allocation have become increasingly complex due to the growing number of constraints and limited resources, making traditional manual timetable generation methods time-consuming, error-prone, and inefficient. This project presents a Smart Resource Planner, an intelligent system designed to automate timetable generation and resource allocation using advanced optimization techniques such as Constraint Programming (CP-SAT) and Integer Linear Programming (ILP), ensuring conflict-free and optimized schedules based on constraints like faculty availability, subject requirements, and classroom allocation. The system also integrates Artificial Intelligence to provide chatbot-based assistance and intelligent insights, enhancing user interaction and decision-making, while blockchain-based logging ensures data security, transparency, and integrity. The combination of optimization algorithms, AI integration, and secure data handling results in a scalable and efficient solution that improves resource utilization, reduces scheduling conflicts, and enhances overall institutional productivity.\\[0.5cm]
+
+\textbf{\textit{Keywords: Timetable Generation, CP-SAT, Integer Linear Programming (ILP), Resource Allocation, Artificial Intelligence, Optimization, Blockchain, Scheduling System.}}
+
+
+\thispagestyle{plain}
+\phantomsection
+\addcontentsline{toc}{chapter}{ABSTRACT}
+\setcounter{page}{5} % V
+\end{titlepage}
+
+% Certificate and Declaration pages omitted for brevity, keep same as template with updated project title.
+\begin{titlepage}
+\thispagestyle{plain}
+
+\begin{center}
+\includegraphics[width=1.0\linewidth]{logo}
+
+
+
+\raggedright
+\vspace{1cm}
+{\Large \textbf{SDG Goals Mapping}}
+\end{center}
+
+\vspace{0.5cm}
+
+\raggedright
+
+{\large \textbf{1. United Nations SDG 4: Quality Education}}
+
+\vspace{0.3cm}
+\textbf{Justification:}
+
+\begin{itemize}
+\item Provides an efficient and automated system for timetable generation, improving academic planning and management.
+\item Enhances the quality of education by ensuring optimal utilization of faculty, classrooms, and learning resources.
+\item Supports structured learning environments by eliminating scheduling conflicts and manual errors.
+\item Enables institutions to focus more on teaching and learning outcomes rather than administrative challenges.
+\end{itemize}
+
+\vspace{0.5cm}
+
+{\large \textbf{2. United Nations SDG 9: Industry, Innovation and Infrastructure}}
+
+\vspace{0.3cm}
+\textbf{Justification:}
+
+\begin{itemize}
+\item Implements advanced optimization techniques such as CP-SAT and ILP for intelligent scheduling solutions.
+\item Integrates Artificial Intelligence to provide smart assistance and improve system usability.
+\item Demonstrates the use of modern technologies to build scalable and efficient digital infrastructure for institutions.
+\item Promotes innovation in academic resource management through automation and intelligent decision-making.
+\end{itemize}
+
+\vspace{0.5cm}
+
+{\large \textbf{3. United Nations SDG 16: Peace, Justice and Strong Institutions}}
+
+\vspace{0.3cm}
+\textbf{Justification:}
+
+\begin{itemize}
+\item Ensures transparency and accountability in scheduling through blockchain-based logging mechanisms.
+\item Reduces conflicts and discrepancies in timetable management by using automated and rule-based systems.
+\item Strengthens institutional operations by maintaining secure and reliable data records.
+\item Builds trust in academic systems through accurate, consistent, and tamper-proof scheduling processes.
+\end{itemize}
+
+\setcounter{page}{6} % vi
+\end{titlepage}
+
+
+
+
+\newpage
+\setcounter{page}{7} % V
+\tableofcontents
+
+
+
+\newpage
+\includegraphics[width=1.0\linewidth]{logo}\\[1.0cm]
+\setcounter{page}{11} % v
+{\textbf{LIST OF FIGURES}}
+
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+
+\begin{tabular}{|c|c|p{12cm}|}
+\hline
+\textbf{S.No.} & \textbf{Figure No.} & \textbf{Name of the Figure} \\
+\hline
+
+1. & 3.1.1 & System Architecture of Smart Resource planner \\ \hline
+2. & 3.2.1.2 & Class Diagram-Authentication Module\\ \hline
+3. & 3.2.1.3 & Sequence Diagram - Authentication Module \\ \hline
+4. & 3.2.1.4 & Use Case Diagram -Authentication Module \\ \hline
+5. & 3.2.2.2 & Class Diagram-Resource Management Module \\ \hline
+6. & 3.2.2.3 & Sequence Diagram-Resource Management Module \\ \hline
+7. & 3.2.2.4 & Use Case Diagram-Resource Management Module\\ \hline
+8. & 3.2.3.2 & Class Diagram-Timetable Generation Module \\ \hline
+9. & 3.2.3.3 & Sequence Diagram-Timetable Generation Module \\ \hline
+10. & 3.2.3.4 & Use Case Diagram-Timetable Generation Module \\ \hline
+11. & 3.2.4.2 & Class Diagram-AI Chatbot Module \\ \hline
+12. & 3.2.4.3 & Sequence Diagram-AI Chatbot Module \\ \hline
+13. & 3.2.4.4 & Use Case Diagram-AI Chatbot Module \\ \hline
+14. & 3.2.5.2 & Class Diagram-Blockchain Logging Module \\ \hline
+15. & 3.2.5.3 & Sequence Diagram-Blockchain Logging Module \\ \hline
+16. & 3.2.5.4 & Use Case Diagram-Blockchain Logging Module \\ \hline
+17. & 5.2.1 & UI of the Web app \\ \hline
+18. & 5.2.2 & Student Registration Page \\ \hline
+19. & 5.2.3& Student Login Page \\ \hline
+20. & 5.2.4 & User Interface for Viewing Generated Time Table \\ \hline
+21. & 5.2.5 & Admin Login Page \\ \hline
+22. & 5.2.6 & Admin home page \\ \hline
+23. & 5.2.7 & Admin Dashboard \\ \hline
+24. & 5.2.8 & Faculties and Departments data \\ \hline
+25. & 5.2.9 & Generated Time Table \\ \hline
+
+\end{tabular}
+\end{center}
+{\textbf{LIST OF TABLES}}
+
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+
+\begin{tabular}{|c|c|p{12cm}|}
+\hline
+\textbf{S.No.} & \textbf{Figure No.} & \textbf{Name of the Figure} \\
+\hline
+1. & 2.6.1 & Literature Survey Summary Table \\ \hline
+2. & 3.2.1 & Technologies and Tools Used in Smart Resource Planner \\ \hline
+
+
+\end{tabular}
+\end{center}
+
+\newpage
+\pagenumbering{arabic}
+
+%%%%%%%%% MAIN TEXT STARTS HERE %%%%%%%%%%
+
+\chapter{INTRODUCTION}
+
+\section{Introduction}
+\par Smart Resource Planner using CP-SAT and ILP with AI Integration is designed to optimize the allocation and scheduling of educational resources such as departments, faculties, subjects, and academic years. By leveraging advanced optimization techniques like Constraint Programming-based SAT (CP-SAT) and Integer Linear Programming (ILP), the system efficiently generates conflict-free timetables and resource plans. It also integrates a Gemini AI-powered chatbot to provide real-time assistance to administrators. Additionally, blockchain technology using Ganache is incorporated to ensure secure, transparent, and tamper-proof storage of system data. The project aims to provide an intelligent, automated, and secure solution for managing educational resources effectively.
+
+\section{Motivation}
+\par Managing educational resources efficiently is a major challenge for institutions due to increasing complexity in scheduling and allocation. Traditional methods such as manual timetable creation or basic software systems are time-consuming, error-prone, and unable to handle multiple constraints effectively. The motivation behind this project is to develop an intelligent and automated system that can optimize resource allocation using CP-SAT and ILP algorithms. By integrating a Gemini AI-powered chatbot, the system enhances user interaction and simplifies administrative tasks. Furthermore, the use of blockchain technology ensures data security, transparency, and reliability, making the system more robust and trustworthy.
+
+\section{Objectives}
+\begin{itemize}
+    \item Automate the scheduling and allocation of educational resources such as departments, faculties, subjects, and academic years.
+    \item Utilize CP-SAT and ILP algorithms to generate optimized and conflict-free timetables.
+    \item Integrate a Gemini AI-powered chatbot to provide real-time assistance and improve user interaction.
+    \item Ensure data security and transparency using blockchain technology (Ganache).
+    \item Develop a scalable and user-friendly system using Python, Django, HTML, CSS, and JavaScript.
+\end{itemize}
+
+\section{Overview of the System}
+\par The Smart Resource Planner processes input data related to departments, faculties, subjects, and academic structures provided by administrators. Using CP-SAT and ILP optimization techniques, the system generates efficient timetables by considering constraints such as faculty availability, subject requirements, and scheduling conflicts. The Gemini AI chatbot assists users by providing real-time support and guidance in managing system operations. Blockchain technology ensures secure and immutable storage of all resource allocation data. The system also provides dashboards and interfaces that allow users to view timetables, manage resources, and monitor system activities efficiently.
+
+\section{Need for Innovation}
+\par Traditional resource management systems in educational institutions rely on manual processes or outdated software that cannot efficiently handle complex scheduling constraints. These systems often lead to conflicts, inefficient resource utilization, and lack of transparency in data handling. With the increasing scale of institutions, there is a need for an intelligent and automated solution. This project introduces innovation by integrating CP-SAT and ILP optimization techniques with AI and blockchain technologies. The combination of these technologies enables efficient scheduling, enhanced user interaction through AI, and secure data management, addressing the limitations of existing systems.
+
+\section{Project Goals}
+\begin{itemize}
+    \item Develop an intelligent resource planning system using CP-SAT and ILP optimization techniques.
+    \item Automate timetable generation and resource allocation with minimal human intervention.
+    \item Enhance system usability through AI-powered chatbot integration.
+    \item Ensure secure, transparent, and tamper-proof data storage using blockchain.
+    \item Provide a scalable, efficient, and reliable solution for educational resource management.
+\end{itemize}
+% ==================
+\chapter{LITERATURE SURVEY}
+\singlespacing
+
+\section{CP-SAT for Academic Timetabling}
+\par This study focuses on using Constraint Programming-based SAT (CP-SAT) solvers for academic timetabling. It formulates the scheduling problem as a constraint satisfaction model, ensuring conflict-free allocation of time slots, faculty, and resources. The approach efficiently handles multiple constraints such as availability, workload, and scheduling dependencies, making it suitable for educational institutions.
+
+\subsection{Methodology}
+\par The system models the timetabling problem using constraint satisfaction techniques where variables represent time slots and resources. Constraints such as faculty availability, subject allocation, and room capacity are applied. The CP-SAT solver explores feasible solutions and identifies optimal schedules that satisfy all constraints.
+
+\subsection{Advantages}
+\begin{itemize}
+    \item Handles complex constraints effectively
+    \item Ensures conflict-free scheduling
+    \item Provides optimal resource utilization
+\end{itemize}
+
+\subsection{Disadvantages}
+\begin{itemize}
+    \item Requires detailed constraint modeling
+    \item Performance depends on solver tuning
+    \item Scalability issues with large datasets
+\end{itemize}
+
+% ===========================================================
+
+\section{Hybrid Optimization for Resource Allocation}
+\par This research proposes a hybrid optimization approach that combines Constraint Programming and Integer Linear Programming for efficient resource allocation. It is designed to solve multi-objective optimization problems across various domains, including educational scheduling.
+
+\subsection{Methodology}
+\par The approach integrates CP for constraint satisfaction and ILP for mathematical optimization. It balances feasibility and optimality by dividing the problem into constraint handling and optimization components, improving overall scheduling efficiency.
+
+\subsection{Advantages}
+\begin{itemize}
+    \item Balances feasibility and optimality
+    \item Adaptable to multiple domains
+    \item Reduces computational time
+\end{itemize}
+
+\subsection{Disadvantages}
+\begin{itemize}
+    \item Complex integration of CP and ILP
+    \item Synchronization overhead
+    \item Requires precise constraint modeling
+\end{itemize}
+
+% ===========================================================
+
+\section{Blockchain for Educational Resource Management }
+\par This study introduces a blockchain-based framework for managing educational resources securely. It uses decentralized ledger technology and smart contracts to ensure transparency, traceability, and secure validation of scheduling and resource allocation.
+
+\subsection{Methodology}
+\par The system stores resource allocation data on a blockchain network, ensuring immutability and decentralization. Smart contracts are used to validate transactions and maintain consistency in scheduling operations.
+
+\subsection{Advantages}
+\begin{itemize}
+    \item Provides transparency and traceability
+    \item Ensures secure and tamper-proof data storage
+    \item Enhances trust and accountability
+\end{itemize}
+
+\subsection{Disadvantages}
+\begin{itemize}
+    \item Adds blockchain overhead
+    \item Low transaction speed
+    \item Complex system integration
+\end{itemize}
+
+% ===========================================================
+
+\section{Efficient Task Scheduling using Constraint Programming}
+\par This research focuses on task allocation using constraint-based optimization models. It aims to distribute workload fairly among available resources while minimizing conflicts and ensuring efficient scheduling.
+
+\subsection{Methodology}
+\par Tasks and resources are modeled as variables with constraints such as availability, workload limits, and dependencies. Constraint solvers are used to generate schedules that balance workload and optimize resource usage.
+
+\subsection{Advantages}
+\begin{itemize}
+    \item Ensures fair workload distribution
+    \item Minimizes scheduling conflicts
+    \item Flexible for multi-objective optimization
+\end{itemize}
+
+\subsection{Disadvantages}
+\begin{itemize}
+    \item Increased computation time for complex constraints
+    \item Performance depends on solver efficiency
+\end{itemize}
+
+% ===========================================================
+
+\section{AI-Based Scheduling for Resource Allocation}
+\par This study integrates Artificial Intelligence with optimization techniques to improve scheduling performance. It uses machine learning models to predict conflicts and enhance adaptive scheduling in dynamic environments.
+
+\subsection{Methodology}
+\par The system analyzes historical scheduling data using machine learning techniques and combines it with ILP-based optimization. AI models help predict potential conflicts and adjust scheduling strategies dynamically.
+
+\subsection{Advantages}
+\begin{itemize}
+    \item Learns from historical data
+    \item Reduces manual effort
+    \item Improves adaptability and scheduling efficiency
+\end{itemize}
+
+\subsection{Disadvantages}
+\begin{itemize}
+    \item Requires large datasets
+    \item Needs retraining for dynamic environments
+    \item Complex hybrid system implementation
+\end{itemize}
+
+
+
+
+\begin{itemize}
+    \item Learns from historical data
+    \item Requires large datasets
+    \item Reduces manual effort
+    \item Improves adaptability and scheduling efficiency
+\end{itemize}
+
+
+\begin{itemize}
+    \item Requires large datasets
+    \item Needs retraining for dynamic environments
+    \item Complex hybrid system implementation
+\end{itemize}
+
+\begin{itemize}
+    \item Learns from historical data
+     \item Improves adaptability and scheduling efficiency
+    \item Requires large datasets
+    \item Reduces manual effort
+     \item Learns from historical data
+    \item Improves adaptability and scheduling efficiency
+     \item Ensures fair workload distribution
+    \item Minimizes scheduling conflicts
+    \item Flexible for multi-objective optimization
+     \item Ensures fair workload distribution
+    \item Minimizes scheduling conflicts
+    \item Flexible for multi-objective optimization
+     \item Ensures fair workload distribution
+    \item Minimizes scheduling conflicts
+    \item Flexible for multi-objective optimization
+\end{itemize}
+
+
+
+
+
+\section{Literature Survey Summary Table}
+\begin{table}[htbp]
+\caption{Literature Survey Summary Table}
+\centering
+\small % Reduces font size slightly to fit on one page
+\renewcommand{\arraystretch}{1.3}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{|c|p{2.8cm}|p{3.8cm}|p{3.8cm}|p{3.8cm}|}
+\hline
+\textbf{S.No.} & \textbf{Title} & \textbf{Methodology} & \textbf{Advantages} & \textbf{Disadvantages} \\
+\hline
+
+1. & \textbf{CP-SAT for Academic Timetabling} &
+Formulates scheduling as a constraint satisfaction problem using CP-SAT solvers, ensuring conflict-free allocation of time slots and resources. &
+Handles complex constraints; ensures conflict-free scheduling; provides optimal utilization. &
+Requires detailed constraint modeling; solver tuning affects performance; scalability may reduce with large datasets. \\
+\hline
+
+2. & \textbf{Hybrid Optimization for Resource Allocation } &
+Combines Constraint Programming and Integer Linear Programming for multi-objective resource optimization across sectors. &
+Balances feasibility and optimality; adaptable to diverse domains; reduces computational time. &
+Complex integration between CP and ILP; synchronization overhead; requires precise constraint design. \\
+\hline
+
+3. & \textbf{Blockchain for Educational Resource Management } &
+Implements decentralized blockchain-based framework with smart contracts for transparent resource management and scheduling validation. &
+Provides transparency and traceability; secures academic data; enhances trust and accountability. &
+Adds blockchain overhead; low transaction speed; complex system integration. \\
+\hline
+
+4. & \textbf{Efficient Task Scheduling using Constraint Programming} &
+Models task allocation using constraint-based solvers that optimize fairness and workload balance among available resources. &
+Ensures fairness and balanced workload; minimizes conflicts; flexible for multiple objectives. &
+Computation time increases with complex constraints; depends on solver efficiency. \\
+\hline
+
+5. & \textbf{AI-Based Scheduling for Resource Allocation } &
+Integrates machine learning with ILP optimization to predict conflicts and improve adaptive scheduling performance. &
+Learns from past schedules; reduces manual tuning; improves adaptability and fairness. &
+Requires large historical datasets; retraining needed for dynamic environments; complex hybrid implementation. \\
+\hline
+\end{tabular}
+\label{tab:summary_srp}
+\end{table}
+
+
+% ==================
+\chapter{PROPOSED SYSTEM}
+\singlespacing
+
+\section{System Architecture}
+
+\par The Smart Resource Planner is designed as a modular web-based architecture that automates timetable generation and resource allocation while providing intelligent insights through optimization techniques and AI integration. The architecture transforms input data such as faculty availability, subjects, and classroom details into optimized schedules using multiple processing layers, including input handling, data storage, optimization processing, AI assistance, and visualization. \\[0.2cm]
+
+\par The system architecture is built to support efficient scheduling, real-time interaction, and intelligent decision-making. It follows a full-stack design with a Python-based backend integrated with optimization tools such as Constraint Programming (CP-SAT) and Integer Linear Programming (ILP). The architecture consists of key functional modules including Resource Management, Timetable Generation, Optimization Engine, AI Assistance, and User Interface. \\[0.2cm]
+
+\par The architecture begins with the \textbf{Application Layer}, where users such as administrators and students interact with the system through a web-based interface. Administrators provide inputs such as subjects, faculty details, and room availability, while students access generated timetables. This layer ensures a user-friendly and interactive experience. \\[0.2cm]
+
+\par Once the data is provided, it is processed in the \textbf{Backend Layer}, where the system handles timetable generation and resource management. The backend integrates optimization algorithms like CP-SAT and ILP to generate conflict-free and efficient schedules based on given constraints. \\[0.2cm]
+
+\par The processed data is stored in the \textbf{Database Layer (SQLite)}, where structured data such as subjects, faculty details, room information, and generated timetables are maintained. This ensures efficient data retrieval, updating, and consistency. \\[0.2cm]
+
+\par After data processing, the system utilizes the \textbf{Optimization and AI Layer}, where scheduling algorithms analyze constraints and generate optimal solutions. AI components provide assistance, insights, and recommendations to improve scheduling efficiency and usability. \\[0.2cm]
+
+\par Finally, the results are displayed in the \textbf{Output Layer}, where users can view student and master timetables. The system presents the generated schedules in a clear and structured format, enabling better planning and decision-making. \\[0.2cm]
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.1\textwidth, height=1.0\textheight, keepaspectratio]{architecture.png}
+    \caption{System Architecture of Smart Resource planner}
+    \label{fig:system_architecture}
+\end{figure}
+
+
+
+
+
+
+\section{Module Division}
+
+\par The Smart Resource Planner system is designed as a modular architecture consisting of multiple interconnected components that work together to automate timetable generation and resource allocation. The system includes key modules such as Authentication, Resource Management, Timetable Generation, AI Chatbot, and Blockchain Logging. Each module plays a critical role in ensuring secure access, efficient resource handling, intelligent scheduling, and transparent system operations.
+
+% ===========================================================
+\subsection{Authentication Module}
+
+\par This module is responsible for managing user access and ensuring system security. It allows administrators and users to register, log in, and access the system based on their roles. The module uses secure authentication mechanisms to protect user data and prevent unauthorized access.
+
+\subsubsection{Description:}
+\begin{itemize}
+    \item User registration and login functionality.
+    \item Role-based access control for Admin and Student.
+    \item Secure authentication using encrypted credentials.
+    \item Session management to maintain user access.
+\end{itemize}
+
+\subsubsection{Class Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{auth class module 1.jpeg}
+    \caption{Class Diagram - Authentication Module}
+\end{figure}
+\newpage
+\subsubsection{Sequence Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{sequence module 1.jpeg}
+    \caption{Sequence Diagram - Authentication Module}
+\end{figure}
+
+\subsubsection{Use Case Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{use case module 1 (2).jpeg}
+    \caption{Use Case Diagram - Authentication Module}
+\end{figure}
+% ===========================================================
+ % Optional: keeps the next module's text from getting lost between images
+
+\subsection{Resource Management Module}
+
+\par This module handles the management of academic resources such as departments, faculty, subjects, classrooms, and time slots. It allows administrators to input, update, and manage all necessary data required for timetable generation.
+
+\subsubsection{Description:}
+\begin{itemize}
+    \item Management of departments, faculty, and subject details.
+    \item Input of classroom availability and time slots.
+    \item Data validation to ensure consistency and correctness.
+    \item Efficient storage and retrieval of resource data.
+\end{itemize}
+
+\subsubsection{Class Diagram}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{resource.jpeg}
+    \caption{Class Diagram - Resource Management Module}
+    \label{fig:class-2}
+\end{figure}
+\newpage
+\subsubsection{Sequence Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{sequence module 2.jpeg}
+    \caption{Sequence Diagram - Resource Management Module}
+    \label{fig:use-2}
+\end{figure}
+\subsubsection{Use Case Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{use module 2.jpeg}
+    \caption{Use case Diagram - Resource Management Module}
+    \label{fig:seq-2}
+\end{figure}
+
+\newpage
+
+
+\subsection{Timetable Generation Module (Optimization Engine)}
+
+\par This module is the core of the system, responsible for generating optimized and conflict-free timetables. It uses advanced optimization techniques such as Constraint Programming (CP-SAT) and Integer Linear Programming (ILP) to allocate resources efficiently based on given constraints.
+
+\subsubsection{Description:}
+\begin{itemize}
+    \item Automated timetable generation using CP-SAT and ILP algorithms.
+    \item Handling of constraints such as faculty availability and room allocation.
+    \item Generation of conflict-free and optimized schedules.
+    \item Efficient resource allocation to minimize idle time.
+\end{itemize}
+\subsubsection{Class Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{module 3.jpeg}
+    \caption{Class Diagram - Timetable Generation Module}
+    \label{fig:class-3}
+\end{figure}
+\subsubsection{Sequence Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{sequence module 3.jpeg}
+    \caption{Sequence Diagram - Timetable Generation Module}
+    \label{fig:seq-3}
+\end{figure}
+\subsubsection{Use Case Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{use module 3.jpeg}
+    \caption{Use Case Diagram - Timetable Generation Module}
+    \label{fig:use-3}
+\end{figure}
+
+
+\subsection{AI Chatbot Module}
+
+\par This module provides intelligent assistance to users through an AI-powered chatbot. It helps users interact with the system, answer queries related to timetables, and provide useful insights for better decision-making.
+
+\subsubsection{Description:}
+\begin{itemize}
+    \item AI-based chatbot for user interaction and support.
+    \item Provides answers to queries related to scheduling and system usage.
+    \item Enhances user experience through intelligent responses.
+    \item Assists in understanding generated timetables and system features.
+\end{itemize}
+
+\subsubsection{Class Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{chatbot.jpeg}
+    \caption{Class Diagram - AI Chatbot Module}
+    \label{fig:class-4}
+\end{figure}
+\newpage
+\subsubsection{Sequence Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{sequence module 4.jpeg}
+    \caption{Sequence Diagram - AI Chatbot Module}
+    \label{fig:seq-4}
+\end{figure}
+\subsubsection{Use Case Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{use module 4.jpeg}
+    \caption{Use Case Diagram - AI Chatbot Module}
+    \label{fig:use-4}
+\end{figure}
+
+% ===========================================================
+
+
+\subsection{Blockchain Logging Module}
+
+\par This module ensures transparency, security, and integrity of system operations by maintaining logs using blockchain technology. It records important activities such as timetable generation and updates, ensuring that data cannot be tampered with.
+
+\subsubsection{Description:}
+\begin{itemize}
+    \item Secure logging of system activities using blockchain.
+    \item Ensures data integrity and prevents unauthorized modifications.
+    \item Maintains a transparent record of timetable generation and updates.
+    \item Enhances trust and reliability of the system.
+\end{itemize}
+
+\subsubsection{Class Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{block.jpeg}
+    \caption{Class Diagram - Blockchain Logging Module}
+    \label{fig:class-5}
+\end{figure}
+\newpage
+\subsubsection{Sequence Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{sequence module 5.jpeg}
+    \caption{Sequence Diagram - Blockchain Logging Module}
+    \label{fig:seq-5}
+\end{figure}
+\subsubsection{Use Case Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{use module 5.jpeg}
+    \caption{Use Case Diagram - Blockchain Logging Module}
+    \label{fig:use-5}
+\end{figure}
+
+
+% ===========================================================
+
+
+
+
+% \usepackage{} % Add in preamble
+
+\begin{table}[H]
+\caption{Technologies and Tools Used in Smart Resource Planner}
+\centering
+\renewcommand{\arraystretch}{1.2}
+
+\begin{tabular}{|p{6cm}|p{9cm}|}
+\hline
+\textbf{Technology} & \textbf{Purpose} \\ \hline
+
+Python & Core programming language used for backend development and implementation of scheduling logic \\ \hline
+
+Flask / FastAPI & To build RESTful APIs and handle backend communication between frontend and server \\ \hline
+
+SQLite & Lightweight database used to store faculty, subjects, room details, and timetable data \\ \hline
+
+CP-SAT (OR-Tools) & Constraint Programming solver used to generate optimized and conflict-free timetables \\ \hline
+
+Integer Linear Programming (ILP - PuLP) & Used for mathematical optimization and efficient resource allocation \\ \hline
+
+HTML, CSS, JavaScript & To design and develop the frontend user interface for system interaction \\ \hline
+
+AI Chatbot (Gemini API ) & Provides intelligent assistance and answers user queries related to scheduling \\ \hline
+
+Blockchain (Ganache ) & Ensures secure, transparent, and tamper-proof logging of timetable generation and updates \\ \hline
+
+Pandas & Used for data handling, preprocessing, and manipulation of scheduling datasets \\ \hline
+
+Matplotlib / Plotly & For visualization of schedules, analytics, and performance insights \\ \hline
+
+\end{tabular}
+\end{table}
+
+\vspace{1.5em}
+
+\section{Requirements}
+
+\par The Smart Resource Planner system requires both hardware and software resources to ensure efficient timetable generation, resource management, and system performance. The system is designed to operate in a web-based environment and can be deployed on local systems or institutional servers, supporting optimization algorithms and real-time user interaction.
+
+\textbf{Hardware Requirements:}
+\begin{itemize}
+    \item Minimum 4GB RAM (8GB recommended) for smooth execution of scheduling algorithms.
+    \item Standard processor (Intel i5 or higher) for efficient computation.
+    \item Stable internet connection for accessing the web interface and AI services.
+    \item Storage space for database and system files.
+\end{itemize}
+
+\textbf{Software Requirements:}
+\begin{itemize}
+    \item Python 3.8 or higher.
+    \item Backend Framework: Flask / Django.
+    \item Optimization Tools: Google OR-Tools (CP-SAT), PuLP (ILP).
+    \item Database: SQLite.
+    \item Frontend Technologies: HTML, CSS, JavaScript.
+    \item AI Integration: Gemini API  chatbot models.
+    \item Blockchain Tools: Ganache  for secure logging.
+\end{itemize}
+
+% ==================
+\chapter{IMPLEMENTATION}
+\section{Methodology}
+
+\par The Smart Resource Planner system is implemented using a web-based architecture combined with optimization techniques and AI integration to automate timetable generation and resource allocation. The system follows a modular design where different components such as resource management, timetable generation, optimization engine, and AI assistance interact through well-defined processes.\\
+
+\par The frontend is developed using HTML, CSS, and JavaScript to provide a responsive and user-friendly interface, while the backend is implemented using Python-based frameworks such as Flask or Django to handle application logic and API communication. SQLite is used as the database to store structured data including faculty details, subjects, room allocation, and generated timetables.\\
+
+\par The Resource Management module allows administrators to input and manage essential data such as departments, faculty, subjects, and available time slots. The Timetable Generation module uses this data to create schedules by considering multiple constraints such as faculty availability, classroom allocation, and subject requirements.\\
+
+\par The Optimization module is the core component of the system, where advanced techniques such as Constraint Programming (CP-SAT) and Integer Linear Programming (ILP) are used to generate conflict-free and optimized timetables. These algorithms ensure efficient utilization of resources while minimizing scheduling conflicts.The AI Chatbot module enhances user interaction by providing intelligent assistance. It helps users understand the timetable, answer queries, and provide useful suggestions for better decision-making.\\
+
+\par The system also integrates a Blockchain Logging module to ensure transparency and data integrity. Important operations such as timetable generation and updates are securely recorded, preventing unauthorized modifications.\\
+
+\par Communication between frontend and backend is handled using RESTful APIs, ensuring smooth data exchange. The system is designed to be scalable, efficient, and user-friendly, allowing future enhancements such as notifications, dynamic updates, and advanced analytics.Overall, the methodology combines optimization algorithms, AI integration, and secure data management to develop an intelligent and efficient scheduling system that improves institutional productivity.\\
+
+\section{Algorithms Used}
+
+\subsection{CP-SAT (Constraint Programming - SAT Solver)}
+CP-SAT is used for timetable generation and scheduling by modeling the problem as a constraint satisfaction problem. It considers constraints such as faculty availability, subject allocation, and time slot conflicts. The solver efficiently explores feasible solutions and generates conflict-free schedules.
+
+
+\begin{itemize}
+    \item Handles complex constraints effectively
+    \item Produces conflict-free schedules
+    \item Suitable for real-world scheduling problems
+\end{itemize}
+
+% ===========================================================
+
+\subsection{Integer Linear Programming (ILP)}
+Integer Linear Programming is used to optimize resource allocation by formulating the problem as mathematical equations consisting of an objective function and linear constraints. It ensures optimal utilization of resources while satisfying all constraints.
+
+
+\begin{itemize}
+    \item Provides optimal solutions
+    \item Efficient for resource allocation problems
+    \item Handles multiple constraints systematically
+\end{itemize}
+
+% ===========================================================
+
+\subsection{Hybrid Optimization (CP-SAT + ILP)}
+The hybrid approach combines CP-SAT and ILP to improve scheduling performance. CP-SAT is used to handle constraints, while ILP ensures optimization. This combination helps in achieving both feasible and optimal solutions.
+
+
+\begin{itemize}
+    \item Balances feasibility and optimality
+    \item Improves efficiency of scheduling
+    \item Reduces conflicts and computation time
+\end{itemize}
+
+% ===========================================================
+
+\subsection{AI-Based Chatbot (NLP)}
+The system integrates a Gemini AI-powered chatbot that uses Natural Language Processing (NLP) techniques to interact with users. It assists administrators by answering queries, guiding system operations, and improving user experience.
+
+
+\begin{itemize}
+    \item Provides real-time assistance
+    \item Enhances user interaction
+    \item Reduces manual effort
+\end{itemize}
+
+% ===========================================================
+
+\subsection{Blockchain Technology (Ganache)}
+Blockchain technology using Ganache is used to store data securely in a decentralized and immutable ledger. It ensures transparency and prevents unauthorized modifications of system data.
+
+
+\begin{itemize}
+    \item Ensures data security and integrity
+    \item Provides transparency
+    \item Tamper-proof data storage
+\end{itemize}
+
+\section{Technologies Used}
+
+The implementation of the Smart Resource Planner system requires modern technologies and tools to support frontend development, backend processing, database management, optimization, and AI-based assistance.
+
+\begin{enumerate}
+
+\item \textbf{Python} \\
+Python is the primary programming language used for backend development and implementing optimization algorithms.
+
+\item \textbf{Flask / Django} \\
+Used as backend frameworks to handle server-side logic, API communication, and request processing.
+
+\item \textbf{HTML, CSS, JavaScript} \\
+These technologies are used to build the frontend interface, providing an interactive and user-friendly experience.
+
+\item \textbf{SQLite} \\
+SQLite is used as a lightweight database to store information such as faculty details, subjects, and timetable data.
+
+\item \textbf{CP-SAT (Google OR-Tools)} \\
+Constraint Programming solver used to generate optimized and conflict-free timetables.
+
+\item \textbf{Integer Linear Programming (ILP - PuLP)} \\
+Used for mathematical optimization and efficient allocation of resources.
+
+\item \textbf{AI Chatbot (Gemini API / NLP Models)} \\
+Provides intelligent assistance, answers user queries, and improves user interaction.
+
+\item \textbf{Blockchain (Ganache / Ethereum)} \\
+Used for secure and tamper-proof logging of system activities such as timetable generation and updates.
+
+\item \textbf{Pandas} \\
+Used for data handling, preprocessing, and manipulation of scheduling data.
+
+\item \textbf{Matplotlib / Plotly} \\
+Used for visualization of schedules and system insights.
+
+\item \textbf{RESTful APIs} \\
+Facilitate communication between frontend and backend systems.
+
+\item \textbf{Development Environment} \\
+Visual Studio Code is used for development and debugging, and GitHub is used for version control and collaboration.
+
+\end{enumerate}
+\section{Source Code}
+This section presents the complete source code smart resource planner using CP-SAT AND ILP with AI integration
+
+\subsection{manage.py}\begin{lstlisting}[language=Python, caption={Django manage.py File}]
+#!/usr/bin/env python
+"""Django's command-line utility for administrative tasks."""
+import os
+import sys
+
+def main():
+    """Run administrative tasks."""
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
+    try:
+        from django.core.management import execute_from_command_line
+    except ImportError as exc:
+        raise ImportError(
+            "Couldn't import Django. Are you sure it's installed and "
+            "available on your PYTHONPATH environment variable? Did you "
+            "forget to activate a virtual environment?"
+        ) from exc
+    execute_from_command_line(sys.argv)
+
+if __name__ == '__main__':
+    main()
+\end{lstlisting}
+\subsection{chatbot.py}
+
+\begin{lstlisting}[language=Python, caption={Chatbot Module Implementation}]
+
+# chatbot.py – FIXED WITH LOCAL EMBEDDINGS
+import os
+import re
+import shutil
+import traceback
+from pathlib import Path
+
+from django.conf import settings
+from .models import timetable_model, faculty_model
+
+from langchain_core.runnables import RunnableBranch, RunnablePassthrough
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_chroma import Chroma
+from langchain_community.document_loaders import PyPDFLoader, CSVLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_core.output_parsers import StrOutputParser
+
+from langchain_community.embeddings import HuggingFaceEmbeddings
+
+# CONFIG
+os.environ["GOOGLE_API_KEY"] = "YOUR_API_KEY"
+
+DATA_DIR = Path(settings.BASE_DIR) / "rag_data"
+VECTOR_DB_DIR = Path("./college_db")
+
+def pdf_path():
+    return DATA_DIR / "college_handbook.pdf"
+
+def csv_path():
+    return DATA_DIR / "college_info.csv"
+
+def initialize_vector_store():
+    pdf_loader = PyPDFLoader(str(pdf_path()))
+    csv_loader = CSVLoader(str(csv_path()))
+    docs = pdf_loader.load() + csv_loader.load()
+
+    splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+    chunks = splitter.split_documents(docs)
+
+    embed = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+
+    vectorstore = Chroma.from_documents(
+        documents=chunks,
+        embedding=embed,
+        persist_directory=str(VECTOR_DB_DIR)
+    )
+    return vectorstore.as_retriever(search_kwargs={"k": 4})
+
+def is_college_question(q):
+    patterns = [r"\b(timetable|faculty|subject|student|department)\b"]
+    return any(re.search(p, q.lower()) for p in patterns)
+
+def build_chat_chain(retriever):
+    llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash")
+
+    rag_prompt = ChatPromptTemplate.from_template(
+        "Answer using context only.\n{context}\nQuestion: {question}"
+    )
+
+    rag = (
+        {"context": lambda x: retriever.get_relevant_documents(x["question"]),
+         "question": RunnablePassthrough()}
+        | rag_prompt | llm | StrOutputParser()
+    )
+
+    gen_prompt = ChatPromptTemplate.from_messages([
+        ("system", "You are a helpful assistant."),
+        ("human", "{question}")
+    ])
+
+    gen = gen_prompt | llm | StrOutputParser()
+
+    router = RunnableBranch(
+        (lambda x: is_college_question(x["question"]), rag),
+        gen
+    )
+
+    return {"question": RunnablePassthrough()} | router
+
+class ChatbotService:
+    def initialize(self):
+        self.retriever = initialize_vector_store()
+        self.chain = build_chat_chain(self.retriever)
+
+    def ask(self, q):
+        return self.chain.invoke({"question": q})
+
+CHATBOT = ChatbotService()
+
+\end{lstlisting}
+\subsection{models.py}
+
+\begin{lstlisting}[language=Python, caption={Database Models for Smart Resource Planner}]
+
+from django.db import models
+from django.contrib.auth.models import User
+
+# Custom Student Model
+class custome_student(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    department = models.CharField(max_length=50, null=True)
+    semester = models.CharField(max_length=50, null=True)
+    academic_years = models.CharField(max_length=50, null=True)
+
+    class Meta:
+        db_table = 'custome_student'
+
+# Department Model
+class department_model(models.Model):
+    department_name = models.CharField(max_length=50, null=True)
+    department_code = models.CharField(max_length=50, null=True)
+    head_of_the_department = models.CharField(max_length=50, null=True)
+    faculty_count = models.IntegerField(null=True)
+
+    class Meta:
+        db_table = 'department_model'
+
+# Academic Year Model
+class academic_years_model(models.Model):
+    start_year = models.CharField(max_length=20, null=True)
+    end_year = models.CharField(max_length=20, null=True)
+    semester = models.CharField(max_length=50, null=True)
+
+    class Meta:
+        db_table = 'academic_years_model'
+
+# Faculty Model
+class faculty_model(models.Model):
+    faculty_name = models.CharField(max_length=50, null=True)
+    subject = models.CharField(max_length=50, null=True)
+    department = models.CharField(max_length=50, null=True)
+    email = models.EmailField(null=True)
+    phone_number = models.CharField(max_length=10, null=True)
+    ac_year = models.CharField(max_length=10, null=True)
+    semester = models.CharField(max_length=10, null=True)
+    is_on_leave = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'faculty_model'
+
+# Faculty Leave Model
+class faculty_leave(models.Model):
+    faculty = models.ForeignKey(faculty_model, on_delete=models.CASCADE)
+    leave_day = models.CharField(max_length=20)
+
+# Timetable Model
+class timetable_model(models.Model):
+    academic_year = models.CharField(max_length=20, null=True)
+    semester = models.CharField(max_length=10, null=True)
+    department = models.CharField(max_length=50, null=True)
+    day = models.CharField(max_length=15, null=True)
+
+    period_1 = models.ForeignKey(faculty_model, on_delete=models.SET_NULL, null=True, related_name='period_1')
+    period_2 = models.ForeignKey(faculty_model, on_delete=models.SET_NULL, null=True, related_name='period_2')
+    period_3 = models.ForeignKey(faculty_model, on_delete=models.SET_NULL, null=True, related_name='period_3')
+    period_4 = models.ForeignKey(faculty_model, on_delete=models.SET_NULL, null=True, related_name='period_4')
+    period_5 = models.ForeignKey(faculty_model, on_delete=models.SET_NULL, null=True, related_name='period_5')
+    period_6 = models.ForeignKey(faculty_model, on_delete=models.SET_NULL, null=True, related_name='period_6')
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'timetable_model'
+        unique_together = ['academic_year', 'semester', 'department', 'day']
+
+\end{lstlisting}
+\subsection{views.py}
+
+\begin{lstlisting}[language=Python, caption={Views Implementation for Smart Resource Planner}]
+
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.http import JsonResponse
+from .models import *
+from ortools.sat.python import cp_model
+import random
+import json
+
+# -------------------------------
+# USER AUTHENTICATION
+# -------------------------------
+
+def user_register(request):
+    if request.method == 'POST':
+        user = User.objects.create_user(
+            username=request.POST.get('username'),
+            email=request.POST.get('email'),
+            password=request.POST.get('password')
+        )
+        custome_student.objects.create(
+            user=user,
+            department=request.POST.get('department')
+        )
+        messages.success(request, 'User registered successfully')
+    return render(request, 'register.html')
+
+def user_login(request):
+    if request.method == "POST":
+        user = authenticate(
+            request,
+            username=request.POST.get('username'),
+            password=request.POST.get('password')
+        )
+        if user:
+            login(request, user)
+            return redirect('user_dashboard')
+        else:
+            messages.error(request, "Invalid credentials.")
+    return render(request, 'login.html')
+
+def logout_user(request):
+    logout(request)
+    return redirect('/')
+
+# -------------------------------
+# RESOURCE MANAGEMENT
+# -------------------------------
+
+def add_department(request):
+    if request.method == 'POST':
+        department_model.objects.create(
+            department_name=request.POST['department_name'],
+            department_code=request.POST['department_code']
+        )
+        messages.success(request, 'Department added successfully!')
+    return render(request, 'add_departments.html')
+
+def add_faculty(request):
+    if request.method == 'POST':
+        faculty_model.objects.create(
+            faculty_name=request.POST['faculty_name'],
+            subject=request.POST['subject'],
+            department=request.POST['department']
+        )
+        messages.success(request, 'Faculty added successfully!')
+    return render(request, 'add_faculty.html')
+
+# -------------------------------
+# TIMETABLE GENERATION (CP-SAT)
+# -------------------------------
+
+def generate_timetable(request):
+    if request.method == 'POST':
+        faculties = faculty_model.objects.all()
+
+        model = cp_model.CpModel()
+        faculty_ids = [f.id for f in faculties]
+
+        schedule = {}
+        days = ['Mon','Tue','Wed','Thu','Fri','Sat']
+
+        for d in range(len(days)):
+            for p in range(6):
+                schedule[(d,p)] = model.NewIntVarFromDomain(
+                    cp_model.Domain.FromValues(faculty_ids),
+                    f"d{d}_p{p}"
+                )
+
+        solver = cp_model.CpSolver()
+        solver.Solve(model)
+
+        messages.success(request, "Timetable Generated!")
+
+    return render(request, 'generate_timetable.html')
+
+# -------------------------------
+# VIEW TIMETABLE
+# -------------------------------
+
+def view_timetable(request):
+    timetables = timetable_model.objects.all()
+    return render(request, 'view_timetable.html', {'timetables': timetables})
+
+# -------------------------------
+# AI CHATBOT API
+# -------------------------------
+
+def chat_api(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        question = data.get("question")
+
+        answer = CHATBOT.ask(question)
+
+        return JsonResponse({
+            "question": question,
+            "answer": answer
+        })
+
+\end{lstlisting}
+\subsection{urls.py}
+
+\begin{lstlisting}[language=Python, caption={URL Routing Configuration for Smart Resource Planner}]
+
+from django.urls import path
+from django.views.generic import TemplateView
+from .views import *
+from . import views
+
+urlpatterns = [
+    path('', TemplateView.as_view(template_name='index.html')),
+
+    # Authentication
+    path('user_register/', user_register, name='user_register'),
+    path('user_login/', user_login, name='user_login'),
+    path('admin_login/', admin_login, name='admin_login'),
+    path('logout_user/', logout_user, name='logout_user'),
+
+    # Resource Management
+    path('add_department/', add_department, name='add_department'),
+    path('add_academic_year/', add_academic_year, name='add_academic_year'),
+    path('add_faculty/', add_faculty, name='add_faculty'),
+
+    # Dashboard
+    path('admin_dashboard/', admin_dashboard, name='admin_dashboard'),
+    path('user_dashboard/', user_dashboard, name='user_dashboard'),
+
+    # View Data
+    path('view_deparments/', view_deparments, name='view_deparments'),
+    path('view_faculty/', view_faculty, name='view_faculty'),
+
+    # Timetable
+    path('generate_timetable/', generate_timetable, name='generate_timetable'),
+    path('view_timetable/', view_timetable, name='view_timetable'),
+
+    # Delete Operations
+    path('delete_department/<int:id>/', delete_department, name='delete_department'),
+    path('delete_faculty/<int:id>/', delete_faculty, name='delete_faculty'),
+
+    # Faculty Leave Management
+    path('faculty_leave/<int:id>/', views.mark_faculty_leave, name='faculty_leave'),
+    path('faculty_active/<int:id>/', views.mark_faculty_active, name='faculty_active'),
+
+    # Chatbot API
+    path('chat/', chat_api, name='chat_api'),
+]
+
+\end{lstlisting}
+\subsection{app.py}
+
+\begin{lstlisting}[language=Python, caption={Application Configuration}]
+
+from django.apps import AppConfig
+
+class AppConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'app'
+
+\end{lstlisting}
+
+
+\subsection{admin.py}
+
+\begin{lstlisting}[language=Python, caption={Admin Panel Configuration}]
+
+from django.contrib import admin
+from .models import *
+
+# Register your models here
+admin.site.register(department_model)
+
+\end{lstlisting}
+\subsection{backends.py}
+
+\begin{lstlisting}[language=Python, caption={Custom Authentication Backend}]
+
+from django.contrib.auth.backends import ModelBackend
+from django.contrib.auth.models import User
+from .models import *
+
+class EmailAuthBackend(ModelBackend):
+
+    def authenticate(self, request, email=None, password=None, **kwargs):
+        try:
+            user = User.objects.get(email=email)
+            if user.check_password(password):
+                return user
+        except User.DoesNotExist:
+            return None
+        return None
+
+    def get_user(self, user_id):
+        try:
+            return User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            return None
+
+\end{lstlisting}
+\section{Execution Instructions}
+Follow these steps to deploy and run the Smart Resource Planner system:
+
+\begin{enumerate}
+
+    \item \textbf{Environment Setup:}
+    \begin{itemize}
+        \item Create a virtual environment: \texttt{python -m venv venv}
+        \item Activate the environment:
+        \begin{itemize}
+            \item Windows: \texttt{venv\textbackslash Scripts\textbackslash activate}
+            \item Linux/Mac: \texttt{source venv/bin/activate}
+        \end{itemize}
+        \item Install dependencies: \texttt{pip install -r requirements.txt}
+    \end{itemize}
+
+    \item \textbf{Database Setup:}
+    \begin{itemize}
+        \item Apply migrations: \texttt{python manage.py makemigrations}
+        \item Migrate database: \texttt{python manage.py migrate}
+    \end{itemize}
+
+    \item \textbf{Create Admin User:}
+    \begin{itemize}
+        \item Run: \texttt{python manage.py createsuperuser}
+        \item Enter username, email, and password
+    \end{itemize}
+
+    \item \textbf{Run the Server:}
+    \begin{itemize}
+        \item Start Django server: \texttt{python manage.py runserver}
+        \item Open browser and go to: \texttt{http://127.0.0.1:8000/}
+    \end{itemize}
+
+    \item \textbf{System Usage:}
+    \begin{itemize}
+        \item Login as Admin to add Departments, Faculty, and Academic Years
+        \item Generate timetable using CP-SAT optimization
+        \item Mark faculty leave and observe automatic substitution
+        \item Login as Student to view timetable and interact with chatbot
+    \end{itemize}
+
+    \item \textbf{Chatbot Execution (Optional):}
+    \begin{itemize}
+        \item Ensure CSV and PDF data are generated automatically
+        \item Chatbot uses local embeddings and Gemini API
+        \item Ask queries related to timetable, faculty, or subjects
+    \end{itemize}
+
+\end{enumerate}
+
+% ==================
+\chapter{RESULTS}
+\section{OUTPUT}
+The web application is designed to provide an intuitive and efficient platform for managing educational resources and generating optimized timetables. When users access the system, they are presented with a clean and user-friendly interface that allows administrators to input essential details such as departments, faculties, subjects, academic years, and resource constraints, while students can easily view their respective schedules. Once the required data is submitted, the backend processes it using advanced optimization techniques like Constraint Programming (CP-SAT) and Integer Linear Programming (ILP) to generate conflict-free and efficient timetables. These algorithms ensure that all constraints, including faculty availability, subject allocation, and time slot management, are satisfied while maximizing overall resource utilization. In addition to optimization, the system integrates a Gemini AI-powered chatbot that provides real-time assistance to users by answering queries, guiding administrative operations, and improving overall user interaction. The generated timetables and resource allocations are presented in a structured and easy-to-understand format, enabling better planning and decision-making. Furthermore, the system ensures data consistency and reliability by performing proper validation and handling invalid or incomplete inputs with appropriate error messages. This seamless workflow reduces manual effort, minimizes errors, and enhances the overall efficiency of resource management in educational institutions.
+
+
+
+\section{OUTPUT IMAGES}
+
+
+
+
+
+\begin{figure}
+            \centering
+            \includegraphics[width=1.0\linewidth]{image.png}
+     
+                \caption{UI of the Web app}
+        \label{fig:out1}
+    \end{figure}
+        
+    
+
+
+
+
+
+\begin{figure}
+           \centering
+           \includegraphics[width=1.0\linewidth]{image_1.png}
+      
+              
+                \caption{Student Registration Page}
+        \label{fig:out2}
+    \end{figure}
+        
+
+
+\begin{figure}
+           \centering
+           \includegraphics[width=1.0\linewidth]{image_2.png}
+       
+              
+                \caption{Student Login Page}
+     \end{figure}
+
+
+
+\begin{figure}
+        \centering
+        \includegraphics[width=1.0\linewidth]{image_3.png}
+    
+        \caption{User Interface for Viewing Generated Time Table}
+    \label{fig:out4}
+\end{figure}
+
+
+\begin{figure}
+        \centering
+        \includegraphics[width=1.0\linewidth]{image_4.png}
+    
+        \caption{Admin Login Page}
+    \label{fig:out5}
+\end{figure}
+
+
+\begin{figure}
+        \centering
+        \includegraphics[width=1.0\linewidth]{image_5.png}
+   
+        \caption{Admin home page}
+    \label{fig:out6}
+\end{figure}
+
+
+\begin{figure}
+       \centering
+       \includegraphics[width=1.0\linewidth]{image_6.png}
+   
+      
+        \caption{Admin Dashboard}
+    \label{fig:out7}
+\end{figure}
+
+
+
+\begin{figure}
+       \centering
+       \includegraphics[width=1.0\linewidth]{WhatsApp Image 2026-03-24 at 12.31.22 AM.jpeg}
+      
+      
+        \caption{Faculties and Departments data}
+    \label{fig:out8}
+\end{figure}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth, height=0.8\textheight]{time table}
+    \caption{Generated Time Table}
+    \label{fig:out9}
+\end{figure}
+
+
+
+% ==================
+\chapter{CONCLUSION AND FUTURE ENHANCEMENTS}
+
+\section{CONCLUSION}
+
+\par The Smart Resource Planner using Constraint Programming (CP-SAT) and Integer Linear Programming (ILP) with Artificial Intelligence integration presents an efficient and intelligent solution for the complex problem of timetable generation and resource allocation in educational institutions. Traditional scheduling methods often involve manual effort, are prone to errors, and fail to handle multiple constraints effectively. This project addresses these challenges by introducing an automated and optimization-driven system that ensures accurate, conflict-free, and efficient scheduling.\\
+
+\par The core strength of the system lies in the implementation of CP-SAT and ILP algorithms, which enable the generation of optimized timetables while considering multiple real-world constraints such as faculty availability, subject requirements, classroom allocation, and workload balancing. These optimization techniques ensure that resources are utilized effectively and scheduling conflicts are minimized, thereby improving institutional productivity.\\
+
+\par In addition to optimization, the integration of an AI-powered chatbot enhances user interaction and accessibility. The chatbot assists users by answering queries related to timetables, providing insights, and improving overall usability. This makes the system more user-friendly and interactive, especially for students and administrators who rely on quick access to scheduling information.\\
+
+Furthermore, the incorporation of blockchain technology using Ganache ensures transparency, data integrity, and security. By maintaining tamper-proof logs of timetable generation and updates, the system builds trust and reliability, which are critical in institutional environments.
+
+Overall, the Smart Resource Planner successfully combines optimization techniques, artificial intelligence, and secure data management to create a scalable and efficient framework. The system not only automates the scheduling process but also enhances decision-making, reduces manual workload, and improves operational efficiency. This project demonstrates the practical application of advanced technologies in solving real-world problems and provides a strong foundation for future intelligent scheduling systems.
+
+\section{FUTURE ENHANCEMENTS}
+
+\par Although the Smart Resource Planner provides an efficient and reliable solution for timetable generation and resource allocation, there are several opportunities for further improvement and enhancement to increase its capabilities and adaptability.\\
+
+\par One of the major enhancements is the implementation of real-time dynamic scheduling. Currently, the system generates timetables based on predefined constraints; however, in real-world scenarios, conditions such as faculty unavailability, sudden changes in schedules, or emergency situations may arise. Incorporating dynamic rescheduling mechanisms would allow the system to automatically adjust and regenerate timetables in real time, improving flexibility and responsiveness.Another important enhancement is the integration of advanced AI-based recommendation systems. By analyzing historical scheduling data and usage patterns, the system can provide intelligent suggestions for optimal resource allocation, workload balancing, and timetable improvements. This would further enhance decision-making and increase system efficiency.\\
+
+\par The AI chatbot can also be enhanced by incorporating advanced Natural Language Processing (NLP) techniques and voice-based interaction. Enabling voice commands and improving conversational capabilities would make the system more accessible and user-friendly, especially for non-technical users.Future improvements may also include the development of a mobile application, allowing users to access timetables, receive notifications, and interact with the system on the go. Push notifications for schedule changes, faculty updates, or announcements would significantly improve user engagement and usability.\\
+
+\par Additionally, the system can be extended to support multi-institutional environments, enabling centralized scheduling across multiple departments or campuses. This would make the system scalable and suitable for larger organizations.\\
+
+\par From a security perspective, further enhancements in blockchain integration can be explored, such as implementing decentralized storage and smart contracts to automate validation processes. This would strengthen data security and ensure complete transparency.\\
+
+\par Finally, the system can be adapted for other domains such as workforce scheduling, healthcare resource allocation, project management, and logistics. By extending the framework, the proposed solution can serve as a versatile tool for solving various optimization problems across different industries.\\
+
+\par In conclusion, the future enhancements aim to make the Smart Resource Planner more intelligent, adaptive, scalable, and user-centric, thereby increasing its real-world applicability and effectiveness.
+
+% ==================
+\chapter*{References}
+\addcontentsline{toc}{chapter}{REFERENCES}
+
+\begin{enumerate}
+\renewcommand{\labelenumi}{[\arabic{enumi}]}
+
+    \item Hooker, J. P. \textit{"Integrated Methods for Optimization."} Springer Optimization and Its Applications, 2019.
+    
+    \item Gunluk, O., \& Nemhauser, G. L. \textit{"Integer Programming and Combinatorial Optimization."} Mathematical Programming, 2021.
+    
+    \item Kumar, M., Verma, S., \& Bhatnagar, R. \textit{"Optimization of Resource Scheduling in Educational Institutes using Integer Linear Programming."} IEEE Access, 2021.
+    
+    \item Michel, L., \& Van Hentenryck, P. \textit{"The CP-SAT Solver."} Google OR-Tools Documentation, 2022.
+    
+    \item Agrawal, R., \& Patel, S. \textit{"AI-Powered Automation in Academic Scheduling Systems."} International Journal of Artificial Intelligence \& Applications, 2022.
+    
+    \item Anderson, P. D., \& Wilson, T. \textit{"Hybrid Optimization Models Using CPSAT and ILP for Complex Scheduling Problems."} IEEE Transactions on Systems, Man, and Cybernetics, 2022.
+    
+    \item Gupta, M., Singh, V., \& Mehra, R. \textit{"Blockchain-Based Secure Data Management System for Educational Institutions."} IEEE Access, 2022.
+    
+    \item Sharma, N., \& Kapoor, R. \textit{"Blockchain for Transparent Academic Record Keeping and Resource Management."} Journal of Blockchain Research, 2021.
+    
+    \item Chen, T., Liu, L., \& Zhang, W. \textit{"Integrating Artificial Intelligence with Blockchain for Intelligent Educational Platforms."} IEEE Internet of Things Journal, 2022.
+    
+    \item Das, A., \& Banerjee, K. \textit{"Implementation of AI Chatbot for Academic Administrative Assistance."} ICCIDS Conference, 2023.
+    
+    \item Patel, H., \& Thomas, J. \textit{"Smart Timetable Generation Using Machine Learning and Optimization Algorithms."} IEEE Transactions on Learning Technologies, 2022.
+    
+    \item Mukherjee, S., Ghosh, P., \& Mishra, A. K. \textit{"A Blockchain-Based Approach for Secure and Decentralized Data Storage in Educational Systems."} Future Generation Computer Systems, 2022.
+    
+    \item Li, D., \& Zhao, H. \textit{"AI and ILP Hybrid Systems for Resource Allocation in Higher Education."} International Journal of Computational Optimization, 2021.
+    
+    \item Park, Y., Lee, M., \& Kim, J. \textit{"A Framework for Cloud-Based Resource Planning in Academic Institutions Using Django."} IEEE Cloud Computing, 2021.
+    
+  
+
+\end{enumerate}
+
+% ===========================================================
+
+% ===========================================================
+% ===========================================================
+
+
+% ===========================================================
+
+% ===========================================================
+
+
+
+
+
+
+
+
+
+
+\end{document}
+

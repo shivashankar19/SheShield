@@ -1,0 +1,10 @@
+{
+  "source_zip": "sheshield.zip",
+  "assets_zip": "batch_7_edits.zip",
+  "excluded_secret_files": [
+    ".env.local"
+  ],
+  "screenshots_count": 40,
+  "uml_count": 21,
+  "documentation_files_count": 0
+}
