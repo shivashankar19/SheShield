@@ -61,8 +61,7 @@ Then open the local URL shown by Vite.
 
 - Application screenshots are available in [`screenshots/`](screenshots/)
 - UML and architecture diagrams are available in [`uml/`](uml/)
-- Supporting documentation is available in [`docs/`](docs/)
-
+  
 ## Security Note
 
 Environment files containing API keys or other secrets are intentionally excluded from this repository. Use `.env.example` as the template for local configuration.
